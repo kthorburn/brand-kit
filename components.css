@@ -140,7 +140,12 @@ body {
 .bk-btn--link { height: auto; min-height: var(--bk-control-sm); padding: 0; border-radius: var(--bk-radius-tile); color: var(--bk-accent); }
 
 /* ---------- Link ---------- */
-.bk-link { display: inline-flex; align-items: center; gap: var(--bk-space-1); color: var(--bk-accent); font-weight: 500; text-decoration: none; }
+.bk-link { position: relative; display: inline-flex; align-items: center; gap: var(--bk-space-1); color: var(--bk-accent); font-weight: 500; text-decoration: none; }
+/* Hit areas: a standalone text link is at least 24px tall, a link button at
+   least 32px wide, both without moving anything. */
+.bk-link::after { content: ""; position: absolute; left: 0; right: 0; top: 50%; height: max(100%, 24px); transform: translateY(-50%); }
+.bk-btn--link { position: relative; }
+.bk-btn--link::after { content: ""; position: absolute; top: 0; bottom: 0; left: 50%; width: max(100%, var(--bk-control-sm)); transform: translateX(-50%); }
 .bk-link:hover, .bk-btn--link:hover { text-decoration: underline; text-underline-offset: 3px; }
 
 /* ---------- Status pill ---------- */
@@ -200,6 +205,7 @@ a.bk-row:hover, button.bk-row:hover { background: color-mix(in srgb, var(--bk-te
 /* ---------- Switch ---------- */
 .bk-switch { appearance: none; -webkit-appearance: none; width: 46px; height: 28px; margin: 0; flex: none; border-radius: 999px; background: var(--bk-sunk); position: relative; cursor: pointer; transition: background-color var(--bk-dur) var(--bk-ease); }
 .bk-switch::after { content: ""; position: absolute; top: 2px; left: 2px; width: 24px; height: 24px; border-radius: 50%; background: var(--bk-knob); box-shadow: var(--bk-shadow-knob); transition: transform var(--bk-dur) var(--bk-ease); }
+.bk-switch::before { content: ""; position: absolute; inset: -2px 0; }   /* 32px hit area around the 28px track */
 .bk-switch:checked { background: var(--bk-ok); }
 .bk-switch:checked::after { transform: translateX(18px); }
 

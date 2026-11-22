@@ -5,7 +5,7 @@ any two apps look like the same product. Values come from `tokens.css`;
 ready-made classes come from `components.css`; `reference.html` shows all of it
 on one page.
 
-Status: version 1.1.1, 2026-11-22 (version 1 confirmed the same day). Round corners, glass floating layers,
+Status: version 1.1.2, 2026-11-22 (version 1 confirmed the same day). Round corners, glass floating layers,
 cool neutrals and a deep blue accent.
 
 ## 1. Ground rules
@@ -238,9 +238,18 @@ bottom sheet at phone width. A dialog has one primary button.
   element on the page, not only kit classes; it also draws the focus ring on
   every focusable element. Both are meant to be global.
 - Text contrast is at least 4.5:1 in both themes. White text goes on
-  `--bk-accent-fill`, never on `--bk-accent`.
+  `--bk-accent-fill`, never on `--bk-accent`. In the light theme the two
+  differ: `--bk-accent` is the darker blue, so accent text passes on the page
+  background, on cards and on its own soft tint; the fill stays brighter.
 - Every interactive element has a visible `:focus-visible` ring (2px accent,
-  2px offset) and a hit area of at least 32px, 40px for primary actions.
+  2px offset).
+- Hit areas: buttons and controls are at least 32px, 40px for primary
+  actions. A standalone text link (`.bk-link`: an arrow link, a footer link,
+  a breadcrumb) is at least 24px tall. A link inside a sentence is exempt.
+  Where a component is drawn smaller than its hit area (the 28px switch, a
+  short link button, a one-line text link), the kit extends the hit area with
+  an invisible pseudo-element, so nothing moves. Leave 8px or more between
+  stacked text links so their hit areas do not overlap.
 - Layouts work at 400px wide with no sideways page scroll.
 
 ## 8. Landing pages

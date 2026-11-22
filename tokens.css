@@ -71,7 +71,7 @@
 
   /* Colour: accent. --bk-accent for text, icons and tints; --bk-accent-fill
      for filled backgrounds that carry --bk-on-accent text. */
-  --bk-accent: #0a6fe8;
+  --bk-accent: #065cc4;        /* 5.6:1 on --bk-bg, 6.3:1 on --bk-surface, 4.6:1 on its own soft tint over --bk-bg */
   --bk-accent-fill: #0a6fe8;
   --bk-on-accent: #ffffff;
   --bk-accent-soft: color-mix(in srgb, var(--bk-accent) 14%, transparent);
