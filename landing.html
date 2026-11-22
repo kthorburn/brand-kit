@@ -1,0 +1,150 @@
+<title>Brand Kit Landing Practice</title>
+<meta name="claude:viewport-fit-sides" content="cover">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap">
+<link rel="stylesheet" href="tokens.css">
+<link rel="stylesheet" href="components.css">
+<link rel="stylesheet" href="motion.css">
+<style>
+/* Page-only styles: the map scene and the three step visuals. Layout, type and motion come from the kit. */
+:root { --map-water: #bcd7f2; --map-park: #cfe6cf; }
+@media (prefers-color-scheme: dark) { :root:not([data-theme="light"]) { --map-water: #13283d; --map-park: #17281b; } }
+:root[data-theme="dark"] { --map-water: #13283d; --map-park: #17281b; }
+body::before { content: ""; position: fixed; inset: 0 0 auto; height: env(safe-area-inset-top, 0px); z-index: 30; background: var(--bk-bg); }
+body { overflow-x: clip; }
+
+.scene { position: absolute; inset: 0; width: 100%; height: 100%; display: block; }
+.scene .land { fill: var(--bk-sunk); }
+.scene .water { fill: var(--map-water); }
+.scene .park { fill: var(--map-park); }
+.scene .street { fill: none; stroke: var(--bk-surface); stroke-width: 5; }
+.scene .route { fill: none; stroke: var(--bk-accent); stroke-width: 6; stroke-linecap: round; stroke-dasharray: 1; stroke-dashoffset: calc(1 - var(--draw, 1)); }
+.scene .boat { offset-path: path("M990 1020 C960 820 1030 640 985 450 C950 300 1010 140 980 -20"); offset-distance: calc(var(--draw, 1) * 100%); offset-rotate: auto; }
+.scene .boat-ring { fill: var(--bk-surface); }
+.scene .boat-dot { fill: var(--bk-accent-fill); }
+.scene .boat-glyph { fill: var(--bk-on-accent); }
+.chip { position: absolute; left: max(var(--bk-space-4), 5vw); bottom: var(--bk-space-7); max-width: min(340px, calc(100% - 32px)); }
+
+.hero-sub { font: var(--bk-type-headline); font-weight: 400; color: var(--bk-text-2); max-width: 34em; margin: 0; }
+.panel { overflow: hidden; display: flex; flex-direction: column; }
+.panel .scene { position: relative; flex: 1; min-height: 0; }
+.bars { flex: 1; min-height: 0; display: flex; align-items: flex-end; gap: 6px; position: relative; padding-right: 60px; border-bottom: 1px solid var(--bk-line); }
+.bars span { flex: 1; height: calc(var(--v) / 20 * 100%); background: var(--bk-accent); border-radius: 6px 6px 0 0; }
+.bars span.late { background: var(--bk-bad); }
+.bars::after { content: "10 min"; position: absolute; left: 0; right: 0; bottom: 50%; border-bottom: 1.5px dashed var(--bk-text-3); font: var(--bk-type-caption); color: var(--bk-text-2); padding-bottom: 2px; text-align: right; }
+.foot { text-align: center; }
+</style>
+
+<header class="bk-navbar">
+  <div class="bk-navbar-inner">
+    <a class="bk-brand" href="#top"><span class="bk-brand-mark"><i data-lucide="waves" class="bk-icon bk-icon--sm"></i></span>Tideline</a>
+    <nav class="bk-nav" aria-label="Sample navigation">
+      <a href="#how">How it works</a><a href="#numbers">Numbers</a>
+    </nav>
+    <button class="bk-btn bk-btn--sm bk-btn--primary">Open map</button>
+  </div>
+</header>
+
+<section class="bk-stage" id="top" data-bk-progress="pin">
+  <div class="bk-stage-pin">
+    <div class="bk-stage-copy">
+      <p class="bk-eyebrow">Old Quay · Northbank · Harbor Point</p>
+      <h1 class="bk-display">Know when your boat leaves.</h1>
+      <p class="hero-sub">Every ferry on the harbor, tracked live from dock to dock.</p>
+      <div class="bk-inline">
+        <button class="bk-btn bk-btn--primary"><i data-lucide="map-pin" class="bk-icon bk-icon--sm"></i>Open the live map</button>
+        <button class="bk-btn bk-btn--tinted">See the timetable</button>
+      </div>
+    </div>
+    <div class="bk-expand">
+      <svg class="scene bk-expand-zoom" viewBox="0 0 1600 1000" preserveAspectRatio="xMidYMid slice" aria-hidden="true">
+        <defs>
+          <pattern id="g-nj" width="64" height="44" patternUnits="userSpaceOnUse" patternTransform="rotate(-6)"><path class="street" d="M0 0H64M0 0V44"/></pattern>
+          <pattern id="g-ny" width="92" height="30" patternUnits="userSpaceOnUse" patternTransform="rotate(29)"><path class="street" d="M0 0H92M0 0V30"/></pattern>
+        </defs>
+        <rect class="land" width="1600" height="1000"/>
+        <rect fill="url(#g-nj)" width="1600" height="1000"/>
+        <rect class="park" x="300" y="300" width="220" height="130" rx="18"/>
+        <rect class="park" x="560" y="700" width="150" height="90" rx="14"/>
+        <path class="water" d="M860 -20 C820 200 900 380 850 560 C810 720 880 860 840 1020 L1130 1020 C1150 860 1090 700 1120 540 C1150 380 1080 200 1110 -20 Z"/>
+        <path class="land" d="M1110 -20 C1080 200 1150 380 1120 540 C1090 700 1150 860 1130 1020 L1620 1020 L1620 -20 Z"/>
+        <path fill="url(#g-ny)" d="M1110 -20 C1080 200 1150 380 1120 540 C1090 700 1150 860 1130 1020 L1620 1020 L1620 -20 Z"/>
+        <rect class="park" x="1330" y="120" width="110" height="400" rx="14" transform="rotate(29 1385 320)"/>
+        <g class="land"><rect x="842" y="250" width="46" height="12"/><rect x="852" y="300" width="50" height="12"/><rect x="838" y="640" width="52" height="12"/><rect x="1072" y="430" width="50" height="12"/><rect x="1078" y="480" width="46" height="12"/><rect x="1086" y="760" width="48" height="12"/></g>
+        <path class="route" pathLength="1" d="M990 1020 C960 820 1030 640 985 450 C950 300 1010 140 980 -20"/>
+        <g class="boat"><circle class="boat-ring" r="24"/><circle class="boat-dot" r="19"/><path class="boat-glyph" d="M-7 -7 L10 0 L-7 7 L-3 0 Z"/></g>
+      </svg>
+      <div class="bk-float chip bk-stage-late">
+        <div class="bk-row"><span class="bk-row-icon bk-row-icon--soft"><i data-lucide="ship" class="bk-icon"></i></span><span class="bk-row-text"><span class="bk-row-title" style="font-weight:600;display:block">Route 4 · MV Heron</span><span class="bk-row-sub" style="display:block">Crossing to Northbank · 12 knots</span></span><span class="bk-pill" data-status="ok"><i data-lucide="circle-check" class="bk-icon"></i>On time</span></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<main class="bk-page" style="gap:var(--bk-space-8)">
+  <section data-bk-progress style="padding-block:var(--bk-space-8)">
+    <p class="bk-statement" data-bk-words>Hundreds of ferries cross this harbor every week. Tideline follows each one, measures how late it ran, and publishes the record for anyone to read.</p>
+  </section>
+
+  <section class="bk-steps" id="how" data-step="0">
+    <div class="bk-steps-visual">
+      <div class="bk-card panel">
+        <svg class="scene" viewBox="560 300 760 520" preserveAspectRatio="xMidYMid slice" aria-hidden="true">
+          <rect class="land" x="0" y="0" width="1600" height="1000"/><rect fill="url(#g-nj)" width="1600" height="1000"/>
+          <path class="water" d="M860 -20 C820 200 900 380 850 560 C810 720 880 860 840 1020 L1130 1020 C1150 860 1090 700 1120 540 C1150 380 1080 200 1110 -20 Z"/>
+          <path class="land" d="M1110 -20 C1080 200 1150 380 1120 540 C1090 700 1150 860 1130 1020 L1620 1020 L1620 -20 Z"/>
+          <path fill="url(#g-ny)" d="M1110 -20 C1080 200 1150 380 1120 540 C1090 700 1150 860 1130 1020 L1620 1020 L1620 -20 Z"/>
+          <path class="route" style="stroke-dasharray:none" d="M990 1020 C960 820 1030 640 985 520"/>
+          <g transform="translate(985 520)"><circle class="boat-ring" r="24"/><circle class="boat-dot" r="19"/><path class="boat-glyph" transform="rotate(-100)" d="M-7 -7 L10 0 L-7 7 L-3 0 Z"/></g>
+        </svg>
+        <div class="bk-row"><span class="bk-row-text"><span class="bk-row-title" style="font-weight:600;display:block">2 ferries crossing</span><span class="bk-row-sub" style="display:block">Updated 4 seconds ago</span></span><span class="bk-pill" data-status="ok"><i data-lucide="circle-check" class="bk-icon"></i>Live</span></div>
+      </div>
+      <div class="bk-card bk-card--pad panel" style="gap:var(--bk-space-4)">
+        <div><p class="bk-caption">Minutes late, each sailing today</p><p class="bk-title-2">3 of 12 more than 10 min late</p></div>
+        <div class="bars" role="img" aria-label="Twelve sailings by minutes late; three are above the 10 minute line">
+          <span style="--v:3"></span><span style="--v:5"></span><span class="late" style="--v:12"></span><span style="--v:2"></span><span class="late" style="--v:16"></span><span style="--v:4"></span><span style="--v:7"></span><span class="late" style="--v:11"></span><span style="--v:1"></span><span style="--v:2"></span><span style="--v:6"></span><span style="--v:4"></span>
+        </div>
+      </div>
+      <div class="bk-card panel" style="justify-content:center">
+        <div class="bk-group bk-group--icons">
+          <div class="bk-row"><span class="bk-row-icon"><i data-lucide="file-text" class="bk-icon"></i></span><span class="bk-row-text"><span class="bk-row-title">October 2026</span><span class="bk-row-sub" style="display:block">1,212 sailings · 94% on time</span></span><i data-lucide="download" class="bk-row-chevron"></i></div>
+          <div class="bk-row"><span class="bk-row-icon"><i data-lucide="file-text" class="bk-icon"></i></span><span class="bk-row-text"><span class="bk-row-title">September 2026</span><span class="bk-row-sub" style="display:block">1,087 sailings · 96% on time</span></span><i data-lucide="download" class="bk-row-chevron"></i></div>
+          <div class="bk-row"><span class="bk-row-icon"><i data-lucide="file-text" class="bk-icon"></i></span><span class="bk-row-text"><span class="bk-row-title">August 2026</span><span class="bk-row-sub" style="display:block">1,304 sailings · 91% on time</span></span><i data-lucide="download" class="bk-row-chevron"></i></div>
+          <div class="bk-row"><span class="bk-row-icon"><i data-lucide="file-text" class="bk-icon"></i></span><span class="bk-row-text"><span class="bk-row-title">July 2026</span><span class="bk-row-sub" style="display:block">1,341 sailings · 92% on time</span></span><i data-lucide="download" class="bk-row-chevron"></i></div>
+        </div>
+      </div>
+    </div>
+    <div>
+      <div class="bk-step is-active"><p class="bk-eyebrow">Live</p><h2 class="bk-title-1">See it as it happens</h2><p class="bk-body bk-prose" style="color:var(--bk-text-2)">Positions arrive every 30 seconds. The map shows each ferry, where it left from and when it lands.</p></div>
+      <div class="bk-step"><p class="bk-eyebrow">Measured</p><h2 class="bk-title-1">Know how late it ran</h2><p class="bk-body bk-prose" style="color:var(--bk-text-2)">Every sailing is checked against the timetable, so a late boat is a number on the record and not a feeling.</p></div>
+      <div class="bk-step"><p class="bk-eyebrow">Published</p><h2 class="bk-title-1">Get the monthly record</h2><p class="bk-body bk-prose" style="color:var(--bk-text-2)">A report for each month, with the same method every time, free to download and share.</p></div>
+    </div>
+  </section>
+
+  <section class="bk-section" id="numbers">
+    <h2 class="bk-title-1" data-bk-reveal>October in numbers</h2>
+    <div class="bk-grid">
+      <div class="bk-card bk-tile" data-bk-reveal style="--bk-stagger:0"><div class="bk-tile-label"><i data-lucide="ship" class="bk-icon bk-icon--sm"></i>Sailings tracked</div><div class="bk-tile-value" data-bk-count="1212">1,212</div><div class="bk-tile-note">About 39 a day</div></div>
+      <div class="bk-card bk-tile" data-bk-reveal style="--bk-stagger:1"><div class="bk-tile-label"><i data-lucide="triangle-alert" class="bk-icon bk-icon--sm"></i>Ran late</div><div class="bk-tile-value"><span data-bk-count="6">6</span><small>%</small></div><div class="bk-tile-note">73 sailings</div></div>
+      <div class="bk-card bk-tile" data-bk-reveal style="--bk-stagger:2"><div class="bk-tile-label"><i data-lucide="timer" class="bk-icon bk-icon--sm"></i>Longest delay</div><div class="bk-tile-value"><span data-bk-count="38">38</span> <small>min</small></div><div class="bk-tile-note">Fog on 14 October</div></div>
+      <div class="bk-card bk-tile" data-bk-reveal style="--bk-stagger:3"><div class="bk-tile-label"><i data-lucide="clock" class="bk-icon bk-icon--sm"></i>Update interval</div><div class="bk-tile-value"><span data-bk-count="30">30</span> <small>sec</small></div><div class="bk-tile-note">Around the clock</div></div>
+    </div>
+  </section>
+</main>
+
+<div class="bk-marquee" data-bk-progress aria-hidden="true">
+  <div class="bk-marquee-row"><span>Old Quay</span><span>Northbank</span><span>Harbor Point</span><span>Mill Island</span><span>Saltmarsh</span><span>Lighthouse Row</span><span>Old Quay</span><span>Northbank</span><span>Harbor Point</span></div>
+  <div class="bk-marquee-row bk-marquee-row--reverse bk-marquee-row--outline"><span>Route 2</span><span>Route 4</span><span>Route 7</span><span>Route 9</span><span>Night Boat</span><span>Harbor Loop</span><span>Route 2</span><span>Route 4</span></div>
+</div>
+
+<div class="bk-page" id="open" style="padding-top:0">
+  <section class="bk-finale" data-bk-progress>
+    <h2 class="bk-display">All aboard.</h2>
+    <p class="hero-sub" style="color:inherit;opacity:.9">Open the live map and see what is on the water right now.</p>
+    <button class="bk-btn bk-btn--lg"><i data-lucide="map-pin" class="bk-icon bk-icon--sm"></i>Open the live map</button>
+  </section>
+  <p class="bk-caption foot">Practice landing page for the brand kit. Names and figures are examples.</p>
+</div>
+
+<script src="https://unpkg.com/lucide@0.460.0/dist/umd/lucide.min.js"></script>
+<script>if (window.lucide) lucide.createIcons();</script>
+<script src="motion.js"></script>

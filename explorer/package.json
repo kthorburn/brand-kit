@@ -1,0 +1,10 @@
+{
+  "name": "brand-kit-explorer",
+  "private": true,
+  "description": "Icon sources for the explorer page. Run: npm install && python3 build.py",
+  "devDependencies": {
+    "@phosphor-icons/core": "2.1.1",
+    "@tabler/icons": "3.24.0",
+    "lucide-static": "0.460.0"
+  }
+}

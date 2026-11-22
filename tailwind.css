@@ -1,0 +1,36 @@
+/*
+  Tailwind v4 bridge. In the app's global stylesheet:
+
+    @import "tailwindcss";
+    @import "brand-kit/tokens.css";
+    @import "brand-kit/tailwind.css";
+
+  Gives utilities such as bg-surface, text-text-2, border-line, rounded-card.
+*/
+@theme inline {
+  --color-bg: var(--bk-bg);
+  --color-surface: var(--bk-surface);
+  --color-sunk: var(--bk-sunk);
+  --color-text: var(--bk-text);
+  --color-text-2: var(--bk-text-2);
+  --color-text-3: var(--bk-text-3);
+  --color-line: var(--bk-line);
+  --color-accent: var(--bk-accent);
+  --color-accent-fill: var(--bk-accent-fill);
+  --color-on-accent: var(--bk-on-accent);
+  --color-accent-soft: var(--bk-accent-soft);
+  --color-ok: var(--bk-ok);
+  --color-warn: var(--bk-warn);
+  --color-bad: var(--bk-bad);
+
+  --font-sans: var(--bk-font);
+  --font-mono: var(--bk-font-mono);
+
+  --radius-card: var(--bk-radius-card);
+  --radius-inner: var(--bk-radius-inner);
+  --radius-tile: var(--bk-radius-tile);
+  --radius-control: var(--bk-radius-control);
+
+  --shadow-float: var(--bk-shadow-float);
+  --ease-bk: var(--bk-ease);
+}

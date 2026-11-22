@@ -1,0 +1,313 @@
+<title>Brand Kit Explorer</title>
+<meta name="claude:viewport-fit-sides" content="cover">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Geist:wght@400;500;600;700&family=Figtree:wght@400;500;600;700&family=Instrument+Sans:wght@400;500;600;700&display=swap">
+<style>
+/* Layout: sticky control rail on the left; one sample phone screen and a sheet of building blocks on the right, all restyled live by the rail. */
+:root{/*LIGHT*/;
+  --s1:4px;--s2:8px;--s3:12px;--s4:16px;--s5:24px;--s6:32px;
+  --ic-stroke:1.75}
+@media (prefers-color-scheme: dark){:root:not([data-theme="light"]){/*DARK*/;color-scheme:dark}}
+:root[data-theme="dark"]{/*DARK*/;color-scheme:dark}
+
+/*VARIANTS*/
+body[data-accent="ink"]{--accent:var(--text);--on-accent:var(--bg)}
+
+body[data-font="system"]{--font:-apple-system,BlinkMacSystemFont,"Inter","Segoe UI",Roboto,"Helvetica Neue",Arial,sans-serif}
+body[data-font="inter"]{--font:"Inter",-apple-system,"Segoe UI",Roboto,Arial,sans-serif}
+body[data-font="geist"]{--font:"Geist",-apple-system,"Segoe UI",Roboto,Arial,sans-serif}
+body[data-font="figtree"]{--font:"Figtree",-apple-system,"Segoe UI",Roboto,Arial,sans-serif}
+body[data-font="instrument"]{--font:"Instrument Sans",-apple-system,"Segoe UI",Roboto,Arial,sans-serif}
+
+body[data-corners="crisp"]{--r-card:6px;--r-ctl:4px;--r-pill:4px}
+body[data-corners="soft"]{--r-card:14px;--r-ctl:10px;--r-pill:999px}
+body[data-corners="round"]{--r-card:22px;--r-ctl:999px;--r-pill:999px}
+
+body[data-surface="hairline"]{--card-border:1px solid var(--line);--card-shadow:none;--float-bg:var(--surface);--float-blur:none}
+body[data-surface="elevated"]{--card-border:1px solid var(--edge);--card-shadow:var(--shadow);--float-bg:var(--surface);--float-blur:none}
+body[data-surface="glass"]{--card-border:1px solid var(--line);--card-shadow:none;--float-bg:color-mix(in srgb,var(--surface) 66%,transparent);--float-blur:blur(22px) saturate(1.7)}
+
+*{box-sizing:border-box}
+body{background:var(--bg);color:var(--text);font-family:var(--font);font-size:15px;line-height:1.45;
+  -webkit-font-smoothing:antialiased;
+  padding-left:max(16px,env(safe-area-inset-left,0px));padding-right:max(16px,env(safe-area-inset-right,0px));padding-block:var(--s5) 56px}
+button{font:inherit;color:inherit;cursor:pointer}
+:focus-visible{outline:2px solid var(--accent);outline-offset:2px}
+i[data-ic]{display:inline-flex;flex:none;width:1em;height:1em;font-size:20px}
+i[data-ic] svg{width:100%;height:100%}
+.ic[stroke-width]{stroke-width:var(--ic-stroke)}
+.num{font-variant-numeric:tabular-nums}
+
+.wrap{max-width:1180px;margin:0 auto;display:grid;grid-template-columns:268px minmax(0,1fr);gap:var(--s6);align-items:start}
+.rail{position:sticky;top:calc(env(safe-area-inset-top,0px) + 16px);display:flex;flex-direction:column;gap:var(--s4)}
+.rail h1{font-size:22px;line-height:1.2;font-weight:700;letter-spacing:-.02em;margin:0;text-wrap:balance}
+.rail p{margin:0;color:var(--text2);font-size:13px}
+.knob{display:flex;flex-direction:column;gap:6px}
+.knob > span{font-size:12px;font-weight:600;color:var(--text2)}
+.opts{display:flex;flex-wrap:wrap;gap:4px}
+.opts button{border:1px solid var(--line);background:var(--surface);border-radius:var(--r-ctl);padding:5px 10px;font-size:13px;font-weight:500;min-height:30px}
+.opts button[aria-pressed="true"]{background:var(--accent);border-color:var(--accent);color:var(--on-accent)}
+.sw{width:12px;height:12px;border-radius:50%;display:inline-block;margin-right:6px;vertical-align:-1px;border:1px solid var(--line)}
+.pick{background:var(--surface);border:var(--card-border);box-shadow:var(--card-shadow);border-radius:var(--r-card);padding:var(--s3);display:flex;flex-direction:column;gap:var(--s2)}
+.pick code{font-family:ui-monospace,SFMono-Regular,Menlo,monospace;font-size:12px;color:var(--text);overflow-wrap:anywhere;user-select:all}
+
+.stage{display:grid;grid-template-columns:minmax(0,372px) minmax(0,1fr);gap:var(--s6);align-items:start;min-width:0}
+.cap{font-size:12px;font-weight:600;color:var(--text3);margin:0 0 var(--s2)}
+
+/* phone */
+.phone{position:relative;height:660px;border-radius:calc(var(--r-card) + 18px);border:1px solid var(--line);overflow:hidden;background:var(--sunk)}
+.map{position:absolute;inset:0}
+.map svg{width:100%;height:100%;display:block}
+.float{background:var(--float-bg);-webkit-backdrop-filter:var(--float-blur);backdrop-filter:var(--float-blur);border:var(--card-border);box-shadow:var(--shadow)}
+.searchbar{position:absolute;top:14px;left:12px;right:12px;height:44px;border-radius:var(--r-ctl);display:flex;align-items:center;gap:var(--s2);padding:0 var(--s3);color:var(--text2);font-size:15px}
+.searchbar i{font-size:18px}
+.marker{position:absolute;width:34px;height:34px;border-radius:50%;background:var(--accent);color:var(--on-accent);display:grid;place-items:center;box-shadow:0 0 0 3px var(--surface),var(--shadow)}
+.marker i{font-size:17px}
+.marker.dim{background:var(--surface);color:var(--text2);box-shadow:0 0 0 1px var(--line),var(--shadow)}
+.sheet{position:absolute;left:8px;right:8px;bottom:76px;border-radius:var(--r-card);padding:var(--s2) 0 var(--s1)}
+.grab{width:36px;height:5px;border-radius:3px;background:var(--text3);opacity:.45;margin:0 auto var(--s2)}
+.sheet-h{display:flex;align-items:baseline;justify-content:space-between;padding:0 var(--s4) var(--s2)}
+.sheet-h b{font-size:20px;font-weight:700;letter-spacing:-.015em}
+.sheet-h span{font-size:13px;color:var(--text2)}
+.row{display:flex;align-items:center;gap:var(--s3);padding:10px var(--s4);min-height:56px}
+.row + .row{border-top:1px solid var(--line)}
+.sheet .row + .row{margin-left:calc(var(--s4) + 36px + var(--s3));padding-left:0}
+.sheet .row + .row .bub{margin-left:calc(-1 * (36px + var(--s3)))}
+.bub{width:36px;height:36px;flex:none;border-radius:calc(var(--r-ctl) * .9);display:grid;place-items:center;background:color-mix(in srgb,var(--accent) 14%,transparent);color:var(--accent)}
+.bub i{font-size:19px}
+.row .tx{flex:1;min-width:0}
+.row .t{font-weight:600;font-size:15px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.row .s{font-size:13px;color:var(--text2);white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.row .meta{font-size:13px;color:var(--text2);white-space:nowrap}
+.row .go{color:var(--text3);font-size:16px}
+.tabs{position:absolute;left:8px;right:8px;bottom:8px;height:60px;border-radius:var(--r-card);display:grid;grid-template-columns:repeat(4,1fr)}
+.tab{display:flex;flex-direction:column;align-items:center;justify-content:center;gap:2px;font-size:11px;font-weight:500;color:var(--text3)}
+.tab i{font-size:23px}
+.tab.on{color:var(--accent)}
+.tab.on .ic[stroke-width]{stroke-width:2.25}
+
+/* blocks */
+.blocks{display:flex;flex-direction:column;gap:var(--s5);min-width:0}
+.eyebrow{font-size:13px;font-weight:600;color:var(--accent);margin:0}
+.large{font-size:34px;line-height:1.12;font-weight:700;letter-spacing:-.022em;margin:2px 0 4px;text-wrap:balance}
+.sub{color:var(--text2);margin:0;max-width:60ch}
+.head{display:flex;flex-wrap:wrap;justify-content:space-between;align-items:flex-end;gap:var(--s4)}
+.seg{display:inline-flex;background:var(--sunk);border-radius:var(--r-ctl);padding:3px;gap:2px}
+.seg span{padding:5px 14px;font-size:13px;font-weight:500;border-radius:calc(var(--r-ctl) - 2px);color:var(--text2)}
+.seg .on{background:var(--surface);color:var(--text);box-shadow:0 1px 2px rgba(0,0,0,.12)}
+.tiles{display:grid;grid-template-columns:repeat(auto-fit,minmax(150px,1fr));gap:var(--s3)}
+.card{background:var(--surface);border:var(--card-border);box-shadow:var(--card-shadow);border-radius:var(--r-card)}
+.tile{padding:var(--s4)}
+.tile .k{font-size:13px;color:var(--text2);display:flex;align-items:center;gap:6px}
+.tile .k i{font-size:16px}
+.tile .v{font-size:28px;font-weight:700;letter-spacing:-.02em;line-height:1.2;margin-top:4px}
+.tile .v small{font-size:15px;font-weight:500;color:var(--text2);letter-spacing:0}
+.tile .d{font-size:13px;color:var(--text2)}
+.line{display:flex;flex-wrap:wrap;gap:var(--s2);align-items:center}
+.btn{display:inline-flex;align-items:center;gap:6px;height:40px;padding:0 18px;border-radius:var(--r-ctl);border:1px solid transparent;font-size:15px;font-weight:600}
+.btn i{font-size:18px}
+.btn.p{background:var(--accent);color:var(--on-accent)}
+.btn.s{background:color-mix(in srgb,var(--accent) 14%,transparent);color:var(--accent)}
+.btn.q{border-color:var(--line);background:var(--surface)}
+.btn.ico{width:40px;padding:0;justify-content:center;border-color:var(--line);background:var(--surface)}
+.pill{display:inline-flex;align-items:center;gap:5px;height:26px;padding:0 10px;border-radius:var(--r-pill);font-size:13px;font-weight:600;background:color-mix(in srgb,var(--c) 15%,transparent);color:var(--c)}
+.pill i{font-size:14px}
+.pill::before{content:"";width:7px;height:7px;border-radius:50%;background:var(--c)}
+.pill.has-ic::before{display:none}
+.glabel{font-size:13px;color:var(--text2);margin:0 0 6px var(--s4)}
+.group .row .bub{width:30px;height:30px;background:var(--accent);color:var(--on-accent);border-radius:calc(min(var(--r-ctl),8px))}
+.group .row .bub i{font-size:17px}
+.group .row{min-height:48px}
+.toggle{width:46px;height:28px;border-radius:999px;background:var(--ok);position:relative;flex:none}
+.toggle::after{content:"";position:absolute;top:2px;right:2px;width:24px;height:24px;border-radius:50%;background:#fff;box-shadow:0 1px 3px rgba(0,0,0,.3)}
+.scale{display:grid;grid-template-columns:auto minmax(0,1fr);gap:6px var(--s4);align-items:baseline;padding:var(--s4)}
+.scale dt{font-size:12px;color:var(--text3);white-space:nowrap}
+.scale dd{margin:0;min-width:0;overflow-wrap:anywhere}
+.t1{font-size:28px;font-weight:700;letter-spacing:-.02em;line-height:1.15}
+.t2{font-size:22px;font-weight:700;letter-spacing:-.015em;line-height:1.2}
+.t3{font-size:17px;font-weight:600;line-height:1.3}
+.tc{font-size:13px;color:var(--text2)}
+.iconrow{display:flex;flex-wrap:wrap;gap:var(--s4);padding:var(--s4);color:var(--text)}
+.iconrow i{font-size:24px}
+.iconrow .f{color:var(--accent)}
+
+@media (max-width:1020px){.stage{grid-template-columns:minmax(0,1fr)}.phone{max-width:372px}}
+@media (max-width:760px){.wrap{grid-template-columns:minmax(0,1fr);gap:var(--s5)}.rail{position:static}.large{font-size:28px}}
+@media (prefers-reduced-motion:no-preference){.opts button,.card,.float{transition:border-radius .2s ease,background-color .2s ease}}
+</style>
+
+<div id="bk-root" hidden></div>
+<div class="wrap">
+  <aside class="rail">
+    <div>
+      <h1>Brand Kit Explorer</h1>
+      <p>Round 2. Direction A now uses Lucide and falls back to Inter off Apple devices. Start from a direction, then change one thing at a time. Light and dark follow your system.</p>
+    </div>
+    <div class="knob"><span>Starting direction</span><div class="opts" id="presets">
+      <button data-preset="a">A · Glass</button><button data-preset="b">B · Instrument</button><button data-preset="c">C · Field</button></div></div>
+    <div class="knob"><span>Typeface</span><div class="opts" data-knob="font">
+      <button data-v="system">SF / Inter</button><button data-v="inter">Inter</button><button data-v="geist">Geist</button><button data-v="figtree">Figtree</button><button data-v="instrument">Instrument Sans</button></div></div>
+    <div class="knob"><span>Icons</span><div class="opts" data-knob="icons">
+      <button data-v="phosphor">Phosphor</button><button data-v="lucide">Lucide</button><button data-v="tabler">Tabler</button></div></div>
+    <div class="knob"><span>Corners</span><div class="opts" data-knob="corners">
+      <button data-v="crisp">Crisp</button><button data-v="soft">Soft</button><button data-v="round">Round</button></div></div>
+    <div class="knob"><span>Surfaces</span><div class="opts" data-knob="surface">
+      <button data-v="hairline">Hairline</button><button data-v="elevated">Elevated</button><button data-v="glass">Glass</button></div></div>
+    <div class="knob"><span>Neutrals</span><div class="opts" data-knob="neutral">
+      <button data-v="cool">Cool</button><button data-v="true">True grey</button><button data-v="warm">Warm</button></div></div>
+    <div class="knob"><span>Accent</span><div class="opts" data-knob="accent">
+      <button data-v="blue"><span class="sw" style="background:var(--blue)"></span>Blue</button><button data-v="green"><span class="sw" style="background:var(--green)"></span>Green</button><button data-v="indigo"><span class="sw" style="background:var(--indigo)"></span>Indigo</button><button data-v="orange"><span class="sw" style="background:var(--orange)"></span>Orange</button><button data-v="ink"><span class="sw" style="background:var(--text)"></span>Ink</button></div></div>
+    <div class="pick">
+      <p>Your pick. Paste this back to Claude with what you'd change.</p>
+      <code id="pick"></code>
+      <div class="opts"><button id="copy">Copy</button></div>
+    </div>
+  </aside>
+
+  <main class="stage">
+    <section>
+      <p class="cap">App screen · sample content</p>
+      <div class="phone">
+        <div class="map" aria-hidden="true">
+          <svg viewBox="0 0 372 660" preserveAspectRatio="xMidYMid slice">
+            <rect width="372" height="660" fill="var(--sunk)"/>
+            <path d="M250 0 C232 120 262 230 236 340 C214 440 250 540 228 660 L372 660 L372 0 Z" fill="var(--water)"/>
+            <path d="M318 0 C306 150 330 300 312 660 L372 660 L372 0 Z" fill="var(--sunk)"/>
+            <rect x="40" y="150" width="86" height="64" rx="10" fill="var(--park)"/>
+            <rect x="120" y="318" width="60" height="44" rx="8" fill="var(--park)"/>
+            <g stroke="var(--surface)" stroke-linecap="round" fill="none">
+              <path d="M-10 110 L236 96" stroke-width="7"/><path d="M-10 250 L240 238" stroke-width="5"/>
+              <path d="M-10 390 L228 380" stroke-width="7"/><path d="M-10 300 L236 292" stroke-width="3"/>
+              <path d="M24 -10 L36 400" stroke-width="5"/><path d="M96 -10 L104 400" stroke-width="3"/>
+              <path d="M168 -10 L178 400" stroke-width="7"/><path d="M-10 170 L240 160" stroke-width="3"/>
+            </g>
+            <path d="M60 372 C110 300 170 250 262 150" stroke="var(--accent)" stroke-width="3" stroke-dasharray="2 7" stroke-linecap="round" fill="none"/>
+          </svg>
+        </div>
+        <div class="searchbar float"><i data-ic="search"></i>Search routes or vessels</div>
+        <div class="marker" style="left:244px;top:132px"><i data-ic="boat" data-fill></i></div>
+        <div class="marker dim" style="left:70px;top:236px"><i data-ic="boat" data-fill></i></div>
+        <div class="marker dim" style="left:290px;top:300px"><i data-ic="pin" data-fill></i></div>
+        <div class="sheet float">
+          <div class="grab"></div>
+          <div class="sheet-h"><b>On the water now</b><span class="num">3 ferries</span></div>
+          <div class="row"><div class="bub"><i data-ic="boat" data-fill></i></div><div class="tx"><div class="t">Route 4 · MV Heron</div><div class="s">Leaving Old Quay · 12 knots</div></div><span class="meta num">Now</span><i class="go" data-ic="chev"></i></div>
+          <div class="row"><div class="bub"><i data-ic="boat" data-fill></i></div><div class="tx"><div class="t">Route 2 · MV Tern</div><div class="s">Arriving at Northbank · 6 knots</div></div><span class="meta num">2 min</span><i class="go" data-ic="chev"></i></div>
+          <div class="row"><div class="bub"><i data-ic="pin" data-fill></i></div><div class="tx"><div class="t">Old Quay dock</div><div class="s">4 departures this hour</div></div><span class="meta num">0.8 mi</span><i class="go" data-ic="chev"></i></div>
+        </div>
+        <nav class="tabs float" aria-label="Sample tab bar">
+          <div class="tab on"><i data-ic="pin" data-fill></i>Map</div>
+          <div class="tab"><i data-ic="list"></i>Sailings</div>
+          <div class="tab"><i data-ic="chart"></i>Trends</div>
+          <div class="tab"><i data-ic="bell"></i>Alerts</div>
+        </nav>
+      </div>
+    </section>
+
+    <section class="blocks">
+      <div>
+        <p class="cap">Page header</p>
+        <div class="head">
+          <div><p class="eyebrow">Harbor Point</p><h2 class="large">Today on the water</h2><p class="sub">Every ferry crossing the harbor, updated every 30 seconds.</p></div>
+          <div class="seg" aria-hidden="true"><span class="on">Day</span><span>Week</span><span>Month</span></div>
+        </div>
+      </div>
+      <div>
+        <p class="cap">Stat tiles</p>
+        <div class="tiles">
+          <div class="card tile"><div class="k"><i data-ic="boat"></i>Sailings</div><div class="v num">42</div><div class="d">6 more than a typical Sunday</div></div>
+          <div class="card tile"><div class="k"><i data-ic="alert"></i>Delayed</div><div class="v num">9</div><div class="d">21% of sailings</div></div>
+          <div class="card tile"><div class="k"><i data-ic="clock"></i>Median crossing</div><div class="v num">14 <small>min</small></div><div class="d">Busiest hour 5 pm</div></div>
+        </div>
+      </div>
+      <div>
+        <p class="cap">Buttons and status</p>
+        <div class="line" style="margin-bottom:12px">
+          <button class="btn p"><i data-ic="nav" data-fill></i>Follow ferry</button>
+          <button class="btn s">Share</button>
+          <button class="btn q">Cancel</button>
+          <button class="btn ico" aria-label="Settings"><i data-ic="settings"></i></button>
+        </div>
+        <div class="line">
+          <span class="pill" style="--c:var(--ok)">On time</span>
+          <span class="pill has-ic" style="--c:var(--warn)"><i data-ic="alert" data-fill></i>Delayed</span>
+          <span class="pill has-ic" style="--c:var(--bad)"><i data-ic="alert" data-fill></i>Cancelled</span>
+          <span class="pill" style="--c:var(--text3)">No data</span>
+        </div>
+      </div>
+      <div>
+        <p class="glabel">Grouped list</p>
+        <div class="card group">
+          <div class="row"><div class="bub"><i data-ic="bell" data-fill></i></div><div class="tx"><div class="t" style="font-weight:500">Delay alerts</div></div><div class="toggle" role="img" aria-label="On"></div></div>
+          <div class="row"><div class="bub"><i data-ic="pin" data-fill></i></div><div class="tx"><div class="t" style="font-weight:500">Home dock</div></div><span class="meta">Old Quay</span><i class="go" data-ic="chev"></i></div>
+          <div class="row"><div class="bub"><i data-ic="clock" data-fill></i></div><div class="tx"><div class="t" style="font-weight:500">Quiet hours</div></div><span class="meta num">10 pm – 7 am</span><i class="go" data-ic="chev"></i></div>
+        </div>
+      </div>
+      <div>
+        <p class="cap">Type scale and icon set</p>
+        <div class="card">
+          <dl class="scale">
+            <dt class="num">Title 1 · 28/700</dt><dd class="t1">Sailings this week</dd>
+            <dt class="num">Title 2 · 22/700</dt><dd class="t2">Busiest routes</dd>
+            <dt class="num">Headline · 17/600</dt><dd class="t3">Harbor Point route</dd>
+            <dt class="num">Body · 15/400</dt><dd>Times come from each vessel's transponder, rounded to the minute.</dd>
+            <dt class="num">Caption · 13/400</dt><dd class="tc num">Updated 10:42 am · 1,284 positions today</dd>
+          </dl>
+          <div class="iconrow" style="border-top:1px solid var(--line)" id="iconrow"></div>
+        </div>
+      </div>
+    </section>
+  </main>
+</div>
+
+<script>
+const ICONS = /*ICONS*/;
+const PRESETS = {
+  a:{font:'system',icons:'lucide',corners:'round',surface:'glass',neutral:'cool',accent:'blue'},
+  b:{font:'geist',icons:'lucide',corners:'crisp',surface:'hairline',neutral:'true',accent:'ink'},
+  c:{font:'figtree',icons:'tabler',corners:'soft',surface:'elevated',neutral:'warm',accent:'green'}
+};
+const KEYS = ['font','icons','corners','surface','neutral','accent'];
+let state = {...PRESETS.a};
+try { const s = JSON.parse(localStorage.getItem('bk-pick') || 'null'); if (s) KEYS.forEach(k => { if (typeof s[k] === 'string') state[k] = s[k]; }); } catch (e) {}
+
+const row = document.getElementById('iconrow');
+['pin','list','chart','bell','settings','search','clock','alert','nav','boat'].forEach(r => {
+  row.insertAdjacentHTML('beforeend', '<i data-ic="' + r + '"></i>');
+});
+['pin','bell','clock','alert','nav','boat'].forEach(r => {
+  row.insertAdjacentHTML('beforeend', '<i class="f" data-ic="' + r + '" data-fill></i>');
+});
+
+function render() {
+  KEYS.forEach(k => {
+    document.body.dataset[k] = state[k];
+    document.querySelectorAll('[data-knob="' + k + '"] button').forEach(b => b.setAttribute('aria-pressed', String(b.dataset.v === state[k])));
+  });
+  const set = ICONS[state.icons];
+  document.querySelectorAll('i[data-ic]').forEach(el => {
+    const r = el.dataset.ic;
+    el.innerHTML = (el.hasAttribute('data-fill') && set.f[r]) || set.o[r] || '';
+  });
+  document.querySelectorAll('#presets button').forEach(b => {
+    const p = PRESETS[b.dataset.preset];
+    b.setAttribute('aria-pressed', String(KEYS.every(k => p[k] === state[k])));
+  });
+  document.getElementById('pick').textContent = KEYS.map(k => k + '=' + state[k]).join(' · ');
+  try { localStorage.setItem('bk-pick', JSON.stringify(state)); } catch (e) {}
+}
+document.querySelectorAll('[data-knob]').forEach(g => g.addEventListener('click', e => {
+  const b = e.target.closest('button'); if (!b) return;
+  state[g.dataset.knob] = b.dataset.v; render();
+}));
+document.getElementById('presets').addEventListener('click', e => {
+  const b = e.target.closest('button'); if (!b) return;
+  state = {...PRESETS[b.dataset.preset]}; render();
+});
+document.getElementById('copy').addEventListener('click', e => {
+  const t = document.getElementById('pick').textContent, btn = e.currentTarget;
+  navigator.clipboard.writeText(t).then(() => { btn.textContent = 'Copied'; setTimeout(() => btn.textContent = 'Copy', 1500); })
+    .catch(() => { const r = document.createRange(); r.selectNodeContents(document.getElementById('pick')); const s = getSelection(); s.removeAllRanges(); s.addRange(r); });
+});
+render();
+</script>
+

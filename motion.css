@@ -1,0 +1,90 @@
+/*
+  brand-kit motion styles. Landing pages only. Load after components.css,
+  together with motion.js. Everything under .bk-motion is the animated
+  version; without that class (no script, or reduced motion) the same markup
+  is a calm static page.
+*/
+
+[data-bk-progress] { --p: 1; }
+
+/* ---------- Landing type ---------- */
+.bk-display { font: var(--bk-type-display); letter-spacing: var(--bk-track-display); margin: 0; text-wrap: balance; }
+.bk-statement { font: var(--bk-type-statement); letter-spacing: var(--bk-track-title); margin: 0; max-width: 24em; }
+
+/* ---------- Stage: pinned hero whose media expands to fill the screen ---------- */
+.bk-stage {
+  --e: clamp(0, calc(var(--p) * 1.7), 1);                    /* expansion, done at 60% */
+  --draw: clamp(0.12, calc(var(--p) * 1.1 + 0.12), 1);       /* for paths that draw */
+  --late: clamp(0, calc((var(--p) - 0.6) * 5), 1);           /* for what appears after */
+  position: relative;
+}
+.bk-stage-copy {
+  max-width: var(--bk-width-page);
+  margin: 0 auto;
+  padding-block: var(--bk-space-6) var(--bk-space-5);
+  padding-left: max(var(--bk-space-4), env(safe-area-inset-left, 0px));
+  padding-right: max(var(--bk-space-4), env(safe-area-inset-right, 0px));
+  display: flex; flex-direction: column; align-items: flex-start; gap: var(--bk-space-3);
+}
+.bk-expand { position: relative; height: 60svh; margin: 0 var(--bk-space-4); border-radius: var(--bk-radius-card); overflow: hidden; background: var(--bk-sunk); }
+
+.bk-motion .bk-stage { height: var(--bk-stage-length, 240svh); }
+.bk-motion .bk-stage-pin { position: sticky; top: 0; height: 100svh; overflow: hidden; }
+.bk-motion .bk-stage-copy {
+  position: relative; z-index: 1;
+  opacity: calc(1 - var(--e) * 1.6);
+  transform: translateY(calc(var(--e) * -48px));
+}
+.bk-motion .bk-expand {
+  position: absolute; inset: 0; height: auto; margin: 0; border-radius: 0;
+  clip-path: inset(
+    calc((1 - var(--e)) * var(--bk-stage-split, 58%))
+    calc((1 - var(--e)) * var(--bk-stage-gutter, 5vw))
+    calc((1 - var(--e)) * var(--bk-space-5))
+    round calc((1 - var(--e)) * var(--bk-radius-card)));
+}
+.bk-motion .bk-expand-zoom { transform: scale(calc(1.18 - var(--e) * 0.18)); transform-origin: 50% 80%; }
+.bk-stage-late { opacity: var(--late); transform: translateY(calc((1 - var(--late)) * 16px)); }
+
+/* ---------- Words that fill in ---------- */
+.bk-motion [data-bk-words] .bk-w { opacity: clamp(0.16, calc((var(--p) - 0.18) * 2.6 * var(--n) - var(--i)), 1); }
+
+/* ---------- Reveal ---------- */
+[data-bk-reveal] { transition: opacity 700ms var(--bk-ease), transform 700ms var(--bk-ease); transition-delay: calc(var(--bk-stagger, 0) * 80ms); }
+.bk-motion .bk-pre { opacity: 0; transform: translateY(28px); }
+
+/* ---------- Steps: a pinned visual that changes as the text scrolls ---------- */
+.bk-steps { display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 1fr); gap: var(--bk-space-7); }
+.bk-steps-visual {
+  position: sticky; top: calc(var(--bk-navbar) + var(--bk-space-5)); align-self: start;
+  height: min(520px, calc(100svh - var(--bk-navbar) - var(--bk-space-7)));
+}
+.bk-steps-visual > * { position: absolute; inset: 0; opacity: 0; transform: scale(0.97); transition: opacity 400ms var(--bk-ease), transform 400ms var(--bk-ease); }
+.bk-steps[data-step="0"] .bk-steps-visual > :nth-child(1),
+.bk-steps[data-step="1"] .bk-steps-visual > :nth-child(2),
+.bk-steps[data-step="2"] .bk-steps-visual > :nth-child(3),
+.bk-steps[data-step="3"] .bk-steps-visual > :nth-child(4) { opacity: 1; transform: none; }
+.bk-step { min-height: 70svh; display: flex; flex-direction: column; justify-content: center; align-items: flex-start; gap: var(--bk-space-3); transition: opacity 300ms var(--bk-ease); }
+.bk-motion .bk-step:not(.is-active) { opacity: 0.32; }
+@media (max-width: 820px) {
+  .bk-steps { grid-template-columns: minmax(0, 1fr); gap: 0; }
+  .bk-steps-visual { top: calc(var(--bk-navbar) + var(--bk-space-2)); height: 300px; z-index: 1; box-shadow: 0 0 0 var(--bk-space-3) var(--bk-bg); background: var(--bk-bg); border-radius: var(--bk-radius-card); }
+  .bk-step { min-height: 52svh; }
+}
+
+/* ---------- Marquee: rows that slide with the scroll ---------- */
+.bk-marquee { overflow: hidden; display: flex; flex-direction: column; gap: var(--bk-space-2); padding-block: var(--bk-space-6); }
+.bk-marquee-row { display: flex; gap: 0.5em; width: max-content; white-space: nowrap; font: var(--bk-type-display); letter-spacing: var(--bk-track-display); transform: translateX(calc(var(--p) * -28%)); }
+.bk-marquee-row--reverse { transform: translateX(calc(-30% + var(--p) * 28%)); }
+.bk-marquee-row--outline { color: transparent; -webkit-text-stroke: 1.5px var(--bk-text-3); }
+
+/* ---------- Closing panel that grows into place ---------- */
+.bk-finale {
+  --f: clamp(0, calc(var(--p) * 2.4), 1);
+  background: var(--bk-accent-fill); color: var(--bk-on-accent);
+  border-radius: calc(var(--bk-radius-card) + 10px);
+  padding: var(--bk-space-8) var(--bk-space-5);
+  display: flex; flex-direction: column; align-items: center; text-align: center; gap: var(--bk-space-4);
+}
+.bk-motion .bk-finale { transform: scale(calc(0.9 + var(--f) * 0.1)); }
+.bk-finale .bk-btn { background: var(--bk-on-accent); color: var(--bk-accent-fill); }

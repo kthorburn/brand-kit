@@ -1,0 +1,127 @@
+/*
+  brand-kit tokens: the single source of truth.
+  Direction: round corners, glass floating layers, cool neutrals, blue accent.
+  Light values sit on :root. Dark follows the system, and an explicit
+  data-theme="light" or data-theme="dark" on <html> wins in both directions.
+  Rules for using these live in BRAND.md.
+*/
+
+:root {
+  /* Type. SF on Apple devices, Inter everywhere else (load Inter 400-700). */
+  --bk-font: -apple-system, BlinkMacSystemFont, "Inter", "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+  --bk-font-mono: ui-monospace, "SF Mono", SFMono-Regular, Menlo, Consolas, monospace;
+
+  --bk-type-large: 700 2.125rem/1.12 var(--bk-font);     /* 34  page title, one per page */
+  --bk-type-title-1: 700 1.75rem/1.15 var(--bk-font);    /* 28  section title */
+  --bk-type-title-2: 700 1.375rem/1.2 var(--bk-font);    /* 22  card or sheet title */
+  --bk-type-headline: 600 1.0625rem/1.3 var(--bk-font);  /* 17  row title, emphasis */
+  --bk-type-body: 400 0.9375rem/1.45 var(--bk-font);     /* 15  default text */
+  --bk-type-caption: 400 0.8125rem/1.4 var(--bk-font);   /* 13  secondary lines, labels */
+  --bk-type-micro: 500 0.6875rem/1.3 var(--bk-font);     /* 11  tab labels only */
+  /* Landing pages only (BRAND.md section 8) */
+  --bk-type-display: 700 clamp(2.5rem, 7vw, 5.5rem)/0.98 var(--bk-font);
+  --bk-type-statement: 600 clamp(1.5rem, 3.6vw, 2.75rem)/1.18 var(--bk-font);
+  --bk-track-display: -0.035em;
+  --bk-track-large: -0.022em;
+  --bk-track-title: -0.016em;
+
+  /* Space: 4px grid. Use only these steps. */
+  --bk-space-1: 4px;
+  --bk-space-2: 8px;
+  --bk-space-3: 12px;
+  --bk-space-4: 16px;
+  --bk-space-5: 24px;
+  --bk-space-6: 32px;
+  --bk-space-7: 48px;
+  --bk-space-8: 64px;
+
+  /* Shape */
+  --bk-radius-card: 22px;      /* cards, sheets, panels */
+  --bk-radius-inner: 14px;     /* anything nested inside a card; multi-line fields */
+  --bk-radius-tile: 8px;       /* small icon tiles */
+  --bk-radius-control: 999px;  /* buttons, pills, single-line fields, segmented controls */
+
+  /* Sizes */
+  --bk-control-sm: 32px;
+  --bk-control: 40px;
+  --bk-control-lg: 48px;
+  --bk-icon-sm: 16px;
+  --bk-icon: 20px;
+  --bk-icon-lg: 24px;
+  --bk-icon-stroke: 1.75;
+  --bk-icon-stroke-active: 2.25;
+  --bk-width-page: 1120px;
+  --bk-width-prose: 65ch;
+  --bk-navbar: 56px;
+
+  /* Motion */
+  --bk-ease: cubic-bezier(0.2, 0.8, 0.2, 1);
+  --bk-dur-fast: 120ms;
+  --bk-dur: 200ms;
+
+  /* Colour: neutrals */
+  --bk-bg: #f2f2f7;
+  --bk-surface: #ffffff;
+  --bk-sunk: #e6e6ec;
+  --bk-text: #0b0b0f;
+  --bk-text-2: #55555f;
+  --bk-text-3: #6b6b75;
+  --bk-line: rgba(60, 60, 67, 0.16);
+  --bk-line-card: var(--bk-line);        /* the edge of a card */
+
+  /* Colour: accent. --bk-accent for text, icons and tints; --bk-accent-fill
+     for filled backgrounds that carry --bk-on-accent text. */
+  --bk-accent: #0a6fe8;
+  --bk-accent-fill: #0a6fe8;
+  --bk-on-accent: #ffffff;
+  --bk-accent-soft: color-mix(in srgb, var(--bk-accent) 14%, transparent);
+
+  /* Colour: status. Never the only signal; always with an icon and a label. */
+  --bk-ok: #17803d;
+  --bk-warn: #955f00;
+  --bk-bad: #c93030;
+
+  /* Surfaces */
+  --bk-glass: color-mix(in srgb, var(--bk-surface) 66%, transparent);
+  --bk-glass-blur: blur(22px) saturate(1.7);
+  --bk-shadow-float: 0 1px 2px rgba(0, 0, 0, 0.06), 0 10px 28px rgba(0, 0, 0, 0.1);
+  --bk-shadow-knob: 0 1px 2px rgba(0, 0, 0, 0.14);
+}
+
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme="light"]) {
+    color-scheme: dark;
+    --bk-bg: #000000;
+    --bk-surface: #1c1c1e;
+    --bk-sunk: #2c2c2e;
+    --bk-text: #ffffff;
+    --bk-text-2: #aeaeb8;
+    --bk-text-3: #8b8b95;
+    --bk-line: rgba(255, 255, 255, 0.14);
+    --bk-accent: #4a9dff;
+    --bk-accent-fill: #0f6fe0;
+    --bk-ok: #34c759;
+    --bk-warn: #f0b429;
+    --bk-bad: #ff6b63;
+    --bk-shadow-float: 0 1px 2px rgba(0, 0, 0, 0.5), 0 12px 32px rgba(0, 0, 0, 0.55);
+    --bk-shadow-knob: 0 1px 2px rgba(0, 0, 0, 0.5);
+  }
+}
+
+:root[data-theme="dark"] {
+  color-scheme: dark;
+  --bk-bg: #000000;
+  --bk-surface: #1c1c1e;
+  --bk-sunk: #2c2c2e;
+  --bk-text: #ffffff;
+  --bk-text-2: #aeaeb8;
+  --bk-text-3: #8b8b95;
+  --bk-line: rgba(255, 255, 255, 0.14);
+  --bk-accent: #4a9dff;
+  --bk-accent-fill: #0f6fe0;
+  --bk-ok: #34c759;
+  --bk-warn: #f0b429;
+  --bk-bad: #ff6b63;
+  --bk-shadow-float: 0 1px 2px rgba(0, 0, 0, 0.5), 0 12px 32px rgba(0, 0, 0, 0.55);
+  --bk-shadow-knob: 0 1px 2px rgba(0, 0, 0, 0.5);
+}

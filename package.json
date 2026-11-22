@@ -1,0 +1,15 @@
+{
+  "name": "brand-kit",
+  "version": "1.0.0",
+  "private": true,
+  "license": "MIT",
+  "description": "One visual system for every app: tokens, components, icons and landing-page motion, in light and dark.",
+  "files": [
+    "tokens.css",
+    "components.css",
+    "tailwind.css",
+    "motion.css",
+    "motion.js",
+    "BRAND.md"
+  ]
+}
