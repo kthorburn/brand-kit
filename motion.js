@@ -29,10 +29,11 @@
 
   all('[data-bk-words]').forEach(function (el) {
     var words = el.textContent.trim().split(/\s+/);
-    el.setAttribute('aria-label', words.join(' '));
     el.style.setProperty('--n', words.length);
-    el.innerHTML = words.map(function (w, i) {
-      return '<span class="bk-w" aria-hidden="true" style="--i:' + i + '">' + w.replace(/&/g, '&amp;').replace(/</g, '&lt;') + '</span>';
+    var esc = function (w) { return w.replace(/&/g, '&amp;').replace(/</g, '&lt;'); };
+    // Screen readers get the sentence once, as text; the animated words are hidden from them.
+    el.innerHTML = '<span class="bk-sr-only">' + esc(words.join(' ')) + '</span>' + words.map(function (w, i) {
+      return '<span class="bk-w" aria-hidden="true" style="--i:' + i + '">' + esc(w) + '</span>';
     }).join(' ');
   });
 

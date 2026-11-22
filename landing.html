@@ -22,7 +22,7 @@ body { overflow-x: clip; }
 .scene .boat-ring { fill: var(--bk-surface); }
 .scene .boat-dot { fill: var(--bk-accent-fill); }
 .scene .boat-glyph { fill: var(--bk-on-accent); }
-.chip { position: absolute; left: max(var(--bk-space-4), 5vw); bottom: var(--bk-space-7); max-width: min(340px, calc(100% - 32px)); }
+.chip { position: absolute; left: max(var(--bk-space-4), 5vw); bottom: var(--bk-space-7); }
 
 .hero-sub { font: var(--bk-type-headline); font-weight: 400; color: var(--bk-text-2); max-width: 34em; margin: 0; }
 .panel { overflow: hidden; display: flex; flex-direction: column; }
@@ -73,8 +73,8 @@ body { overflow-x: clip; }
         <path class="route" pathLength="1" d="M990 1020 C960 820 1030 640 985 450 C950 300 1010 140 980 -20"/>
         <g class="boat"><circle class="boat-ring" r="24"/><circle class="boat-dot" r="19"/><path class="boat-glyph" d="M-7 -7 L10 0 L-7 7 L-3 0 Z"/></g>
       </svg>
-      <div class="bk-float chip bk-stage-late">
-        <div class="bk-row"><span class="bk-row-icon bk-row-icon--soft"><i data-lucide="ship" class="bk-icon"></i></span><span class="bk-row-text"><span class="bk-row-title" style="font-weight:600;display:block">Route 4 · MV Heron</span><span class="bk-row-sub" style="display:block">Crossing to Northbank · 12 knots</span></span><span class="bk-pill" data-status="ok"><i data-lucide="circle-check" class="bk-icon"></i>On time</span></div>
+      <div class="bk-float bk-chip chip bk-stage-late">
+        <div class="bk-row"><span class="bk-row-icon bk-row-icon--soft"><i data-lucide="ship" class="bk-icon"></i></span><span class="bk-row-text"><span class="bk-row-title bk-row-title--strong">Route 4 · MV Heron</span><span class="bk-row-sub">Crossing to Northbank · 12 knots</span></span><span class="bk-pill" data-status="ok"><i data-lucide="circle-check" class="bk-icon"></i>On time</span></div>
       </div>
     </div>
   </div>
@@ -96,7 +96,7 @@ body { overflow-x: clip; }
           <path class="route" style="stroke-dasharray:none" d="M990 1020 C960 820 1030 640 985 520"/>
           <g transform="translate(985 520)"><circle class="boat-ring" r="24"/><circle class="boat-dot" r="19"/><path class="boat-glyph" transform="rotate(-100)" d="M-7 -7 L10 0 L-7 7 L-3 0 Z"/></g>
         </svg>
-        <div class="bk-row"><span class="bk-row-text"><span class="bk-row-title" style="font-weight:600;display:block">2 ferries crossing</span><span class="bk-row-sub" style="display:block">Updated 4 seconds ago</span></span><span class="bk-pill" data-status="ok"><i data-lucide="circle-check" class="bk-icon"></i>Live</span></div>
+        <div class="bk-row"><span class="bk-row-text"><span class="bk-row-title bk-row-title--strong">2 ferries crossing</span><span class="bk-row-sub">Updated 4 seconds ago</span></span><span class="bk-pill" data-status="ok"><i data-lucide="circle-check" class="bk-icon"></i>Live</span></div>
       </div>
       <div class="bk-card bk-card--pad panel" style="gap:var(--bk-space-4)">
         <div><p class="bk-caption">Minutes late, each sailing today</p><p class="bk-title-2">3 of 12 more than 10 min late</p></div>
@@ -106,10 +106,10 @@ body { overflow-x: clip; }
       </div>
       <div class="bk-card panel" style="justify-content:center">
         <div class="bk-group bk-group--icons">
-          <div class="bk-row"><span class="bk-row-icon"><i data-lucide="file-text" class="bk-icon"></i></span><span class="bk-row-text"><span class="bk-row-title">October 2026</span><span class="bk-row-sub" style="display:block">1,212 sailings · 94% on time</span></span><i data-lucide="download" class="bk-row-chevron"></i></div>
-          <div class="bk-row"><span class="bk-row-icon"><i data-lucide="file-text" class="bk-icon"></i></span><span class="bk-row-text"><span class="bk-row-title">September 2026</span><span class="bk-row-sub" style="display:block">1,087 sailings · 96% on time</span></span><i data-lucide="download" class="bk-row-chevron"></i></div>
-          <div class="bk-row"><span class="bk-row-icon"><i data-lucide="file-text" class="bk-icon"></i></span><span class="bk-row-text"><span class="bk-row-title">August 2026</span><span class="bk-row-sub" style="display:block">1,304 sailings · 91% on time</span></span><i data-lucide="download" class="bk-row-chevron"></i></div>
-          <div class="bk-row"><span class="bk-row-icon"><i data-lucide="file-text" class="bk-icon"></i></span><span class="bk-row-text"><span class="bk-row-title">July 2026</span><span class="bk-row-sub" style="display:block">1,341 sailings · 92% on time</span></span><i data-lucide="download" class="bk-row-chevron"></i></div>
+          <div class="bk-row"><span class="bk-row-icon"><i data-lucide="file-text" class="bk-icon"></i></span><span class="bk-row-text"><span class="bk-row-title">October 2026</span><span class="bk-row-sub">1,212 sailings · 94% on time</span></span><i data-lucide="download" class="bk-row-chevron"></i></div>
+          <div class="bk-row"><span class="bk-row-icon"><i data-lucide="file-text" class="bk-icon"></i></span><span class="bk-row-text"><span class="bk-row-title">September 2026</span><span class="bk-row-sub">1,087 sailings · 96% on time</span></span><i data-lucide="download" class="bk-row-chevron"></i></div>
+          <div class="bk-row"><span class="bk-row-icon"><i data-lucide="file-text" class="bk-icon"></i></span><span class="bk-row-text"><span class="bk-row-title">August 2026</span><span class="bk-row-sub">1,304 sailings · 91% on time</span></span><i data-lucide="download" class="bk-row-chevron"></i></div>
+          <div class="bk-row"><span class="bk-row-icon"><i data-lucide="file-text" class="bk-icon"></i></span><span class="bk-row-text"><span class="bk-row-title">July 2026</span><span class="bk-row-sub">1,341 sailings · 92% on time</span></span><i data-lucide="download" class="bk-row-chevron"></i></div>
         </div>
       </div>
     </div>

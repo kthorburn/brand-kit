@@ -54,22 +54,31 @@
 .bk-motion .bk-pre { opacity: 0; transform: translateY(28px); }
 
 /* ---------- Steps: a pinned visual that changes as the text scrolls ---------- */
-.bk-steps { display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 1fr); gap: var(--bk-space-7); }
-.bk-steps-visual {
-  position: sticky; top: calc(var(--bk-navbar) + var(--bk-space-5)); align-self: start;
+/* Without .bk-motion (no script, or reduced motion) every visual is shown:
+   beside its step on wide screens, above the steps on narrow ones. */
+.bk-steps { --bk-step-size: min(520px, 70svh); display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 1fr); gap: var(--bk-space-7); }
+.bk-steps-visual, .bk-steps > :not(.bk-steps-visual) { display: flex; flex-direction: column; gap: var(--bk-space-5); }
+.bk-steps-visual > * { height: var(--bk-step-size); transition: opacity 400ms var(--bk-ease), transform 400ms var(--bk-ease); }
+.bk-step { min-height: var(--bk-step-size); display: flex; flex-direction: column; justify-content: center; align-items: flex-start; gap: var(--bk-space-3); transition: opacity 300ms var(--bk-ease); }
+
+.bk-motion .bk-steps-visual {
+  display: block; position: sticky; top: calc(var(--bk-navbar) + var(--bk-space-5)); align-self: start;
   height: min(520px, calc(100svh - var(--bk-navbar) - var(--bk-space-7)));
 }
-.bk-steps-visual > * { position: absolute; inset: 0; opacity: 0; transform: scale(0.97); transition: opacity 400ms var(--bk-ease), transform 400ms var(--bk-ease); }
-.bk-steps[data-step="0"] .bk-steps-visual > :nth-child(1),
-.bk-steps[data-step="1"] .bk-steps-visual > :nth-child(2),
-.bk-steps[data-step="2"] .bk-steps-visual > :nth-child(3),
-.bk-steps[data-step="3"] .bk-steps-visual > :nth-child(4) { opacity: 1; transform: none; }
-.bk-step { min-height: 70svh; display: flex; flex-direction: column; justify-content: center; align-items: flex-start; gap: var(--bk-space-3); transition: opacity 300ms var(--bk-ease); }
+.bk-motion .bk-steps-visual > * { position: absolute; inset: 0; height: auto; opacity: 0; transform: scale(0.97); }
+.bk-motion .bk-steps[data-step="0"] .bk-steps-visual > :nth-child(1),
+.bk-motion .bk-steps[data-step="1"] .bk-steps-visual > :nth-child(2),
+.bk-motion .bk-steps[data-step="2"] .bk-steps-visual > :nth-child(3),
+.bk-motion .bk-steps[data-step="3"] .bk-steps-visual > :nth-child(4) { opacity: 1; transform: none; }
+.bk-motion .bk-steps > :not(.bk-steps-visual) { gap: 0; }
+.bk-motion .bk-step { min-height: 70svh; }
 .bk-motion .bk-step:not(.is-active) { opacity: 0.32; }
 @media (max-width: 820px) {
-  .bk-steps { grid-template-columns: minmax(0, 1fr); gap: 0; }
-  .bk-steps-visual { top: calc(var(--bk-navbar) + var(--bk-space-2)); height: 300px; z-index: 1; box-shadow: 0 0 0 var(--bk-space-3) var(--bk-bg); background: var(--bk-bg); border-radius: var(--bk-radius-card); }
-  .bk-step { min-height: 52svh; }
+  .bk-steps { --bk-step-size: 300px; grid-template-columns: minmax(0, 1fr); gap: var(--bk-space-5); }
+  .bk-step { min-height: 0; }
+  .bk-motion .bk-steps { gap: 0; }
+  .bk-motion .bk-steps-visual { top: calc(var(--bk-navbar) + var(--bk-space-2)); height: 300px; z-index: 1; box-shadow: 0 0 0 var(--bk-space-3) var(--bk-bg); background: var(--bk-bg); border-radius: var(--bk-radius-card); }
+  .bk-motion .bk-step { min-height: 52svh; }
 }
 
 /* ---------- Marquee: rows that slide with the scroll ---------- */

@@ -4,19 +4,16 @@
 <link rel="stylesheet" href="tokens.css">
 <link rel="stylesheet" href="components.css">
 <style>
-/* Page-only styles: the sample map. Everything else comes from the kit. */
+/* Page-only styles: the sample map drawing and the layout of this page. Everything else comes from the kit. */
 :root { --map-water: #bcd7f2; --map-park: #cfe6cf; }
 @media (prefers-color-scheme: dark) { :root:not([data-theme="light"]) { --map-water: #152a40; --map-park: #17281b; } }
 :root[data-theme="dark"] { --map-water: #152a40; --map-park: #17281b; }
 body::before { content: ""; position: fixed; inset: 0 0 auto; height: env(safe-area-inset-top, 0px); z-index: 30; background: var(--bk-bg); }
-.map { position: relative; height: 460px; border-radius: var(--bk-radius-card); border: 1px solid var(--bk-line); overflow: hidden; background: var(--bk-sunk); }
-.map > svg { position: absolute; inset: 0; width: 100%; height: 100%; }
-.map-search { position: absolute; top: var(--bk-space-3); left: var(--bk-space-3); right: var(--bk-space-3); border-radius: var(--bk-radius-control); border: 0; }
-.map-search .bk-field { background: transparent; border: 0; height: 44px; }
-.map-sheet { position: absolute; left: var(--bk-space-2); right: var(--bk-space-2); bottom: var(--bk-space-2); padding-top: var(--bk-space-3); }
-.map-sheet .bk-section-head { padding: 0 var(--bk-space-4) var(--bk-space-1); }
-.marker { position: absolute; width: 34px; height: 34px; border-radius: 50%; background: var(--bk-accent-fill); color: var(--bk-on-accent); display: grid; place-items: center; box-shadow: 0 0 0 3px var(--bk-surface), var(--bk-shadow-float); }
-.marker--quiet { background: var(--bk-surface); color: var(--bk-text-2); box-shadow: 0 0 0 1px var(--bk-line), var(--bk-shadow-float); }
+.map-demo { height: 460px; }
+.map-demo > svg { position: absolute; inset: 0; width: 100%; height: 100%; }
+.map-demo > .bk-map-control { position: absolute; right: var(--bk-space-3); top: calc(var(--bk-space-3) + 44px + var(--bk-space-2)); }
+.stack { display: flex; flex-direction: column; gap: var(--bk-space-3); }
+.demo-scrim { position: static; border-radius: var(--bk-radius-card); }
 .note { font: var(--bk-type-caption); color: var(--bk-text-3); margin: 0; }
 </style>
 
@@ -55,7 +52,7 @@ body::before { content: ""; position: fixed; inset: 0 0 auto; height: env(safe-a
   <div class="bk-cols">
     <section class="bk-section">
       <div class="bk-section-head"><h2 class="bk-title-2">Live map</h2><span class="note">Glass is only for layers that float over content</span></div>
-      <div class="map">
+      <div class="bk-map map-demo">
         <svg viewBox="0 0 640 460" preserveAspectRatio="xMidYMid slice" aria-hidden="true">
           <rect width="640" height="460" fill="var(--bk-sunk)"/>
           <path d="M420 0 C400 90 440 170 410 250 C386 320 426 390 400 460 L640 460 L640 0 Z" fill="var(--map-water)"/>
@@ -70,14 +67,15 @@ body::before { content: ""; position: fixed; inset: 0 0 auto; height: env(safe-a
           </g>
           <path d="M120 300 C200 240 320 180 452 96" stroke="var(--bk-accent)" stroke-width="3" stroke-dasharray="2 7" stroke-linecap="round" fill="none"/>
         </svg>
-        <div class="marker" style="left:68%;top:15%"><i data-lucide="ship" class="bk-icon bk-icon--sm"></i></div>
-        <div class="marker marker--quiet" style="left:16%;top:58%"><i data-lucide="ship" class="bk-icon bk-icon--sm"></i></div>
-        <div class="bk-float map-search"><label class="bk-field"><i data-lucide="search" class="bk-icon bk-icon--sm"></i><input id="map-q" type="search" placeholder="Search routes or vessels" aria-label="Search sailings"></label></div>
-        <div class="bk-float map-sheet">
+        <div class="bk-marker" style="left:68%;top:15%"><i data-lucide="ship" class="bk-icon bk-icon--sm"></i></div>
+        <div class="bk-marker bk-marker--quiet" style="left:16%;top:58%"><i data-lucide="ship" class="bk-icon bk-icon--sm"></i></div>
+        <button class="bk-map-control" type="button"><i data-lucide="layers" class="bk-icon bk-icon--sm"></i>Layers</button>
+        <div class="bk-float bk-map-search"><label class="bk-field"><i data-lucide="search" class="bk-icon bk-icon--sm"></i><input id="map-q" type="search" placeholder="Search routes or vessels" aria-label="Search sailings"></label></div>
+        <div class="bk-float bk-map-sheet">
           <div class="bk-section-head"><h3 class="bk-title-2">On the water now</h3><span class="bk-caption bk-num">2 ferries</span></div>
           <div class="bk-group bk-group--icons">
-            <a class="bk-row" href="#sailings"><span class="bk-row-icon bk-row-icon--soft"><i data-lucide="ship" class="bk-icon"></i></span><span class="bk-row-text"><span class="bk-row-title" style="font-weight:600;display:block">Route 4 · MV Heron</span><span class="bk-row-sub" style="display:block">Leaving Old Quay · 12 knots</span></span><span class="bk-row-meta">Now</span><i data-lucide="chevron-right" class="bk-row-chevron"></i></a>
-            <a class="bk-row" href="#sailings"><span class="bk-row-icon bk-row-icon--soft"><i data-lucide="ship" class="bk-icon"></i></span><span class="bk-row-text"><span class="bk-row-title" style="font-weight:600;display:block">Route 2 · MV Tern</span><span class="bk-row-sub" style="display:block">Arriving at Northbank · 6 knots</span></span><span class="bk-row-meta">2 min</span><i data-lucide="chevron-right" class="bk-row-chevron"></i></a>
+            <a class="bk-row" href="#sailings"><span class="bk-row-icon bk-row-icon--soft"><i data-lucide="ship" class="bk-icon"></i></span><span class="bk-row-text"><span class="bk-row-title bk-row-title--strong">Route 4 · MV Heron</span><span class="bk-row-sub">Leaving Old Quay · 12 knots</span></span><span class="bk-row-meta">Now</span><i data-lucide="chevron-right" class="bk-row-chevron"></i></a>
+            <a class="bk-row" href="#sailings"><span class="bk-row-icon bk-row-icon--soft"><i data-lucide="ship" class="bk-icon"></i></span><span class="bk-row-text"><span class="bk-row-title bk-row-title--strong">Route 2 · MV Tern</span><span class="bk-row-sub">Arriving at Northbank · 6 knots</span></span><span class="bk-row-meta">2 min</span><i data-lucide="chevron-right" class="bk-row-chevron"></i></a>
           </div>
         </div>
       </div>
@@ -123,6 +121,63 @@ body::before { content: ""; position: fixed; inset: 0 0 auto; height: env(safe-a
     </div>
   </section>
 
+  <section class="bk-section" id="more">
+    <div class="bk-section-head"><h2 class="bk-title-1">More components</h2><span class="note">Added in version 1.1</span></div>
+    <div class="bk-cols">
+      <div class="stack">
+        <div class="bk-tabs" role="tablist" aria-label="Views">
+          <button role="tab" aria-selected="true">Summary</button><button role="tab" aria-selected="false">Activity</button><button role="tab" aria-selected="false">Routes</button><button role="tab" aria-selected="false">Delays</button><button role="tab" aria-selected="false">Vessels</button><button role="tab" aria-selected="false">Docks</button>
+        </div>
+        <div class="bk-card bk-card--pad stack">
+          <label class="bk-label" for="dock">Home dock
+            <span class="bk-field bk-select"><i data-lucide="map-pin" class="bk-icon bk-icon--sm"></i><select id="dock"><option>Old Quay</option><option>Northbank</option><option>Mill Island</option></select><i data-lucide="chevron-down" class="bk-icon bk-icon--sm"></i></span>
+          </label>
+          <label class="bk-label" for="note">Note for the crew
+            <textarea id="note" class="bk-textarea" placeholder="Anything the crew should know"></textarea>
+          </label>
+          <label class="bk-label" for="filter">Filter
+            <span class="bk-field bk-field--sm"><i data-lucide="search" class="bk-icon bk-icon--sm"></i><input id="filter" type="search" placeholder="Vessel or route"></span>
+          </label>
+          <div class="bk-inline">
+            <button class="bk-btn bk-btn--danger" type="button"><i data-lucide="trash-2" class="bk-icon bk-icon--sm"></i>Delete alert</button>
+            <button class="bk-btn bk-btn--link" type="button">Reset to defaults</button>
+            <a class="bk-link" href="#more">All sailings<i data-lucide="arrow-right" class="bk-icon bk-icon--sm"></i></a>
+          </div>
+          <div class="bk-inline">
+            <span class="bk-pill bk-pill--sm" data-status="ok"><i data-lucide="circle-check" class="bk-icon"></i>On time</span>
+            <span class="bk-pill bk-pill--sm" data-status="info"><i data-lucide="info" class="bk-icon"></i>Boarding</span>
+            <span class="bk-tooltip">Updated 4 seconds ago</span>
+          </div>
+          <ul class="bk-legend" aria-label="Chart key">
+            <li class="bk-legend-item"><span class="bk-swatch" style="--bk-swatch:var(--bk-ok)"></span>On time</li>
+            <li class="bk-legend-item"><span class="bk-swatch" style="--bk-swatch:var(--bk-warn)"></span>Delayed</li>
+            <li class="bk-legend-item"><span class="bk-swatch bk-swatch--dot" style="--bk-swatch:var(--bk-bad)"></span>Cancelled</li>
+            <li class="bk-legend-item"><span class="bk-swatch bk-swatch--line" style="--bk-swatch:var(--bk-accent)"></span>Route</li>
+          </ul>
+          <p class="bk-inset bk-caption">An inset holds a note or a nested area inside a card. Never put a card inside a card.</p>
+        </div>
+      </div>
+      <div class="stack">
+        <div class="bk-card bk-empty">
+          <i data-lucide="ship" class="bk-icon bk-icon--lg"></i>
+          <p class="bk-headline">No sailings in this range</p>
+          <p class="bk-caption">Try a longer time range.</p>
+          <button class="bk-btn bk-btn--sm bk-btn--tinted" type="button">Show the last week</button>
+        </div>
+        <div class="bk-card bk-card--pad stack" aria-label="Loading placeholder">
+          <span class="bk-skeleton" style="width:40%"></span><span class="bk-skeleton" style="height:var(--bk-space-6);width:60%"></span><span class="bk-skeleton"></span>
+        </div>
+        <div class="bk-scrim demo-scrim">
+          <div class="bk-dialog" role="group" aria-label="Sample dialog">
+            <h3 class="bk-title-2">Turn off delay alerts?</h3>
+            <p class="bk-body">You will stop getting a message when a ferry runs more than 10 minutes late.</p>
+            <div class="bk-inline"><button class="bk-btn bk-btn--primary" type="button">Turn off</button><button class="bk-btn bk-btn--plain" type="button">Cancel</button></div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
   <section class="bk-section">
     <h2 class="bk-title-1">Type scale</h2>
     <div class="bk-card bk-card--pad" style="display:flex;flex-direction:column;gap:var(--bk-space-3)">
@@ -143,6 +198,12 @@ document.querySelectorAll('.bk-seg').forEach(function (g) {
   g.addEventListener('click', function (e) {
     var b = e.target.closest('button'); if (!b) return;
     g.querySelectorAll('button').forEach(function (x) { x.setAttribute('aria-pressed', String(x === b)); });
+  });
+});
+document.querySelectorAll('.bk-tabs').forEach(function (g) {
+  g.addEventListener('click', function (e) {
+    var b = e.target.closest('[role="tab"]'); if (!b) return;
+    g.querySelectorAll('[role="tab"]').forEach(function (x) { x.setAttribute('aria-selected', String(x === b)); });
   });
 });
 </script>

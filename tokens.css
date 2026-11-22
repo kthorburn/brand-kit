@@ -80,12 +80,15 @@
   --bk-ok: #17803d;
   --bk-warn: #955f00;
   --bk-bad: #c93030;
+  --bk-info: var(--bk-accent);   /* the info status; the same blue as the accent */
 
   /* Surfaces */
   --bk-glass: color-mix(in srgb, var(--bk-surface) 66%, transparent);
   --bk-glass-blur: blur(22px) saturate(1.7);
   --bk-shadow-float: 0 1px 2px rgba(0, 0, 0, 0.06), 0 10px 28px rgba(0, 0, 0, 0.1);
   --bk-shadow-knob: 0 1px 2px rgba(0, 0, 0, 0.14);
+  --bk-knob: #ffffff;                 /* the switch knob; white in both themes */
+  --bk-scrim: rgba(0, 0, 0, 0.4);     /* the dimmed page behind a dialog */
 }
 
 @media (prefers-color-scheme: dark) {
@@ -105,6 +108,7 @@
     --bk-bad: #ff6b63;
     --bk-shadow-float: 0 1px 2px rgba(0, 0, 0, 0.5), 0 12px 32px rgba(0, 0, 0, 0.55);
     --bk-shadow-knob: 0 1px 2px rgba(0, 0, 0, 0.5);
+    --bk-scrim: rgba(0, 0, 0, 0.6);
   }
 }
 
@@ -124,4 +128,5 @@
   --bk-bad: #ff6b63;
   --bk-shadow-float: 0 1px 2px rgba(0, 0, 0, 0.5), 0 12px 32px rgba(0, 0, 0, 0.55);
   --bk-shadow-knob: 0 1px 2px rgba(0, 0, 0, 0.5);
+  --bk-scrim: rgba(0, 0, 0, 0.6);
 }

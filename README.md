@@ -91,7 +91,11 @@ With Tailwind v4, add the bridge to get utilities such as `bg-surface`, `text-te
 @import "tailwindcss";
 @import "brand-kit/tokens.css";
 @import "brand-kit/tailwind.css";
+@import "brand-kit/components.css" layer(components);
 ```
+
+Import the classes into a layer, as above. Outside a layer they override every
+Tailwind utility on the same element.
 
 Load Inter at weights 400 to 700 for devices that do not have SF, and use
 `lucide-react` (or any Lucide package) for icons.

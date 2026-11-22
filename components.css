@@ -25,6 +25,7 @@ body {
 .bk-eyebrow { font: var(--bk-type-caption); font-weight: 600; color: var(--bk-accent); margin: 0; }
 .bk-num { font-variant-numeric: tabular-nums; }
 .bk-prose { max-width: var(--bk-width-prose); }
+.bk-sr-only { position: absolute; width: 1px; height: 1px; margin: -1px; padding: 0; overflow: hidden; clip-path: inset(50%); white-space: nowrap; border: 0; }
 
 /* ---------- Icons (Lucide) ---------- */
 .bk-icon { width: var(--bk-icon); height: var(--bk-icon); flex: none; stroke-width: var(--bk-icon-stroke); }
@@ -87,7 +88,15 @@ body {
 }
 .bk-brand { display: flex; align-items: center; gap: var(--bk-space-2); font: var(--bk-type-headline); color: inherit; text-decoration: none; white-space: nowrap; }
 .bk-brand-mark { width: 28px; height: 28px; border-radius: var(--bk-radius-tile); background: var(--bk-accent-fill); color: var(--bk-on-accent); display: grid; place-items: center; }
-.bk-nav { display: flex; gap: var(--bk-space-1); flex: 1; min-width: 0; overflow-x: auto; scrollbar-width: none; -webkit-mask-image: linear-gradient(90deg, #000 calc(100% - 28px), transparent); mask-image: linear-gradient(90deg, #000 calc(100% - 28px), transparent); }
+@property --bk-nav-fade { syntax: "<length>"; inherits: false; initial-value: 0px; }
+.bk-nav { display: flex; gap: var(--bk-space-1); flex: 1; min-width: 0; overflow-x: auto; scrollbar-width: none; -webkit-mask-image: linear-gradient(90deg, #000 calc(100% - var(--bk-nav-fade)), transparent); mask-image: linear-gradient(90deg, #000 calc(100% - var(--bk-nav-fade)), transparent); }
+/* The right edge fades only while the links overflow and there is more to
+   scroll to. A scroll timeline is inactive when nothing overflows, so the
+   fade stays at 0. Browsers without scroll timelines get no fade. */
+@supports (animation-timeline: scroll()) {
+  .bk-nav { animation: bk-nav-fade linear both; animation-timeline: scroll(self inline); }
+  @keyframes bk-nav-fade { from { --bk-nav-fade: 28px; } to { --bk-nav-fade: 0px; } }
+}
 .bk-nav a {
   display: inline-flex; align-items: center; gap: 6px;
   height: var(--bk-control-sm); padding: 0 var(--bk-space-3);
@@ -128,21 +137,28 @@ body {
 .bk-btn--sm { height: var(--bk-control-sm); padding: 0 var(--bk-space-3); font: var(--bk-type-caption); font-weight: 600; }
 .bk-btn--sm.bk-btn--icon { width: var(--bk-control-sm); padding: 0; }
 .bk-btn--lg { height: var(--bk-control-lg); padding: 0 var(--bk-space-5); }
+.bk-btn--link { height: auto; min-height: var(--bk-control-sm); padding: 0; border-radius: var(--bk-radius-tile); color: var(--bk-accent); }
+
+/* ---------- Link ---------- */
+.bk-link { display: inline-flex; align-items: center; gap: var(--bk-space-1); color: var(--bk-accent); font-weight: 500; text-decoration: none; }
+.bk-link:hover, .bk-btn--link:hover { text-decoration: underline; text-underline-offset: 3px; }
 
 /* ---------- Status pill ---------- */
 .bk-pill {
-  --c: var(--bk-text-3);
+  --bk-pill-color: var(--bk-text-3);
   display: inline-flex; align-items: center; gap: 5px;
   height: 26px; padding: 0 10px;
   border-radius: var(--bk-radius-control);
   font: var(--bk-type-caption); font-weight: 600; white-space: nowrap;
-  color: var(--c); background: color-mix(in srgb, var(--c) 15%, transparent);
+  color: var(--bk-pill-color); background: color-mix(in srgb, var(--bk-pill-color) 15%, transparent);
 }
 .bk-pill .bk-icon { width: 14px; height: 14px; stroke-width: 2.25; }
-.bk-pill[data-status="ok"] { --c: var(--bk-ok); }
-.bk-pill[data-status="warn"] { --c: var(--bk-warn); }
-.bk-pill[data-status="bad"] { --c: var(--bk-bad); }
-.bk-pill[data-status="info"] { --c: var(--bk-accent); }
+.bk-pill[data-status="ok"] { --bk-pill-color: var(--bk-ok); }
+.bk-pill[data-status="warn"] { --bk-pill-color: var(--bk-warn); }
+.bk-pill[data-status="bad"] { --bk-pill-color: var(--bk-bad); }
+.bk-pill[data-status="info"] { --bk-pill-color: var(--bk-info); }
+.bk-pill--sm { height: 22px; padding: 0 var(--bk-space-2); gap: var(--bk-space-1); }
+.bk-pill--sm .bk-icon { width: 12px; height: 12px; }
 
 /* ---------- Grouped list ---------- */
 .bk-group-label { font: var(--bk-type-caption); color: var(--bk-text-2); margin: 0 0 0 var(--bk-space-4); }
@@ -161,24 +177,29 @@ a.bk-row:hover, button.bk-row:hover { background: color-mix(in srgb, var(--bk-te
 .bk-row-icon--soft { background: var(--bk-accent-soft); color: var(--bk-accent); border-radius: 50%; width: 36px; height: 36px; }
 .bk-group--icons:has(.bk-row-icon--soft) { --bk-row-inset: calc(var(--bk-space-4) + 36px + var(--bk-space-3)); }
 .bk-row-text { flex: 1; min-width: 0; }
-.bk-row-title { font: var(--bk-type-body); font-weight: 500; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
-.bk-row-sub { font: var(--bk-type-caption); color: var(--bk-text-2); white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+.bk-row-title { display: block; font: var(--bk-type-body); font-weight: 500; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+.bk-row-title--strong { font-weight: 600; }
+.bk-row-sub { display: block; font: var(--bk-type-caption); color: var(--bk-text-2); white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
 .bk-row-meta { font: var(--bk-type-caption); color: var(--bk-text-2); white-space: nowrap; font-variant-numeric: tabular-nums; }
-.bk-row-chevron { color: var(--bk-text-3); width: 16px; height: 16px; flex: none; }
+.bk-row-chevron { color: var(--bk-text-3); width: var(--bk-icon-sm); height: var(--bk-icon-sm); flex: none; stroke-width: var(--bk-icon-stroke); }
 
 /* ---------- Segmented control ---------- */
 .bk-seg { display: inline-flex; gap: 2px; padding: 3px; background: var(--bk-sunk); border-radius: var(--bk-radius-control); }
-.bk-seg button {
-  height: 28px; padding: 0 14px; border: 0; border-radius: var(--bk-radius-control);
+.bk-seg button, .bk-seg a {
+  display: inline-flex; align-items: center; justify-content: center;
+  height: var(--bk-control-sm); padding: 0 14px; border: 0; border-radius: var(--bk-radius-control);
   background: transparent; color: var(--bk-text-2); cursor: pointer;
-  font: var(--bk-type-caption); font-weight: 500;
+  font: var(--bk-type-caption); font-weight: 500; text-decoration: none; white-space: nowrap;
   transition: background-color var(--bk-dur) var(--bk-ease);
 }
-.bk-seg button[aria-pressed="true"] { background: var(--bk-surface); color: var(--bk-text); font-weight: 600; box-shadow: var(--bk-shadow-knob); }
+/* A choice that changes the view in place is a button with aria-pressed; one
+   that goes to another URL (a time range in the query string) is a link with
+   aria-current="true". */
+.bk-seg button[aria-pressed="true"], .bk-seg a[aria-current] { background: var(--bk-surface); color: var(--bk-text); font-weight: 600; box-shadow: var(--bk-shadow-knob); }
 
 /* ---------- Switch ---------- */
 .bk-switch { appearance: none; -webkit-appearance: none; width: 46px; height: 28px; margin: 0; flex: none; border-radius: 999px; background: var(--bk-sunk); position: relative; cursor: pointer; transition: background-color var(--bk-dur) var(--bk-ease); }
-.bk-switch::after { content: ""; position: absolute; top: 2px; left: 2px; width: 24px; height: 24px; border-radius: 50%; background: #fff; box-shadow: 0 1px 3px rgba(0, 0, 0, 0.3); transition: transform var(--bk-dur) var(--bk-ease); }
+.bk-switch::after { content: ""; position: absolute; top: 2px; left: 2px; width: 24px; height: 24px; border-radius: 50%; background: var(--bk-knob); box-shadow: var(--bk-shadow-knob); transition: transform var(--bk-dur) var(--bk-ease); }
 .bk-switch:checked { background: var(--bk-ok); }
 .bk-switch:checked::after { transform: translateX(18px); }
 
@@ -190,8 +211,22 @@ a.bk-row:hover, button.bk-row:hover { background: color-mix(in srgb, var(--bk-te
   color: var(--bk-text-2); min-width: 0;
 }
 .bk-field:focus-within { border-color: var(--bk-accent); box-shadow: 0 0 0 3px var(--bk-accent-soft); }
-.bk-field input { flex: 1; min-width: 0; border: 0; outline: 0; background: transparent; color: var(--bk-text); font: var(--bk-type-body); }
+.bk-field input, .bk-field select { flex: 1; min-width: 0; border: 0; outline: 0; background: transparent; color: var(--bk-text); font: var(--bk-type-body); }
 .bk-field input::placeholder { color: var(--bk-text-3); }
+.bk-field--sm { height: var(--bk-control-sm); padding: 0 var(--bk-space-3); }
+.bk-field--sm input, .bk-field--sm select { font: var(--bk-type-caption); }
+/* Select: a .bk-field holding a <select> and a trailing chevron-down icon.
+   The select reaches under the icon, so a click on the icon opens it. */
+.bk-select select { appearance: none; -webkit-appearance: none; cursor: pointer; align-self: stretch; margin-right: calc(-1 * (var(--bk-icon-sm) + var(--bk-space-2))); padding-right: calc(var(--bk-icon-sm) + var(--bk-space-2)); }
+.bk-select > .bk-icon { pointer-events: none; }
+.bk-textarea {
+  display: block; width: 100%; min-height: calc(var(--bk-control-lg) * 2); resize: vertical;
+  padding: var(--bk-space-3) var(--bk-space-4);
+  background: var(--bk-surface); border: 1px solid var(--bk-line); border-radius: var(--bk-radius-inner);
+  color: var(--bk-text); font: var(--bk-type-body); outline: 0;
+}
+.bk-textarea:focus { border-color: var(--bk-accent); box-shadow: 0 0 0 3px var(--bk-accent-soft); }
+.bk-textarea::placeholder { color: var(--bk-text-3); }
 .bk-label { display: flex; flex-direction: column; gap: 6px; font: var(--bk-type-caption); font-weight: 600; color: var(--bk-text-2); }
 
 /* ---------- Table ---------- */
@@ -200,6 +235,76 @@ a.bk-row:hover, button.bk-row:hover { background: color-mix(in srgb, var(--bk-te
 .bk-table th { text-align: left; font: var(--bk-type-caption); font-weight: 600; color: var(--bk-text-2); padding: var(--bk-space-3) var(--bk-space-4); white-space: nowrap; }
 .bk-table td { padding: var(--bk-space-3) var(--bk-space-4); border-top: 1px solid var(--bk-line); white-space: nowrap; }
 .bk-table .bk-right { text-align: right; font-variant-numeric: tabular-nums; }
+
+/* ---------- Tabs: more than four views of the same content ---------- */
+.bk-tabs { display: flex; gap: var(--bk-space-1); min-width: 0; overflow-x: auto; scrollbar-width: none; }
+.bk-tabs [role="tab"] {
+  display: inline-flex; align-items: center; gap: 6px; flex: none;
+  height: var(--bk-control-sm); padding: 0 var(--bk-space-3);
+  border: 0; border-radius: var(--bk-radius-control); background: transparent; cursor: pointer;
+  font: var(--bk-type-caption); font-weight: 500; color: var(--bk-text-2);
+  text-decoration: none; white-space: nowrap;
+}
+.bk-tabs [role="tab"]:hover { color: var(--bk-text); }
+.bk-tabs [role="tab"][aria-selected="true"] { background: var(--bk-accent-soft); color: var(--bk-accent); font-weight: 600; }
+
+/* ---------- Inset: a sunk area inside a card or beside text ---------- */
+.bk-inset { background: var(--bk-sunk); border-radius: var(--bk-radius-inner); padding: var(--bk-space-3) var(--bk-space-4); }
+
+/* ---------- Empty and error states ---------- */
+.bk-empty { display: flex; flex-direction: column; align-items: center; text-align: center; gap: var(--bk-space-2); padding: var(--bk-space-7) var(--bk-space-5); color: var(--bk-text-2); }
+.bk-empty > .bk-icon { color: var(--bk-text-3); }
+.bk-empty .bk-headline { color: var(--bk-text); }
+
+/* ---------- Skeleton: a still placeholder; nothing loops ---------- */
+.bk-skeleton { display: block; min-height: var(--bk-space-4); background: var(--bk-sunk); border-radius: var(--bk-radius-inner); }
+
+/* ---------- Legend for charts and maps ---------- */
+.bk-legend { display: flex; flex-wrap: wrap; gap: var(--bk-space-1) var(--bk-space-4); margin: 0; padding: 0; list-style: none; font: var(--bk-type-caption); color: var(--bk-text-2); }
+.bk-legend-item { display: inline-flex; align-items: center; gap: 6px; }
+/* Set the color with --bk-swatch; it is always an app color named for what it means. */
+.bk-swatch { width: 12px; height: 12px; flex: none; border-radius: 4px; background: var(--bk-swatch, var(--bk-text-3)); }
+.bk-swatch--dot { border-radius: 50%; }
+.bk-swatch--line { height: 3px; border-radius: var(--bk-radius-control); }
+
+/* ---------- Map: the frame, markers, and the layers that float on it ---------- */
+.bk-map { position: relative; border: 1px solid var(--bk-line); border-radius: var(--bk-radius-card); overflow: hidden; background: var(--bk-sunk); }
+.bk-marker { width: 34px; height: 34px; border-radius: 50%; display: grid; place-items: center; background: var(--bk-accent-fill); color: var(--bk-on-accent); box-shadow: 0 0 0 3px var(--bk-surface), var(--bk-shadow-float); }
+.bk-marker--quiet { background: var(--bk-surface); color: var(--bk-text-2); box-shadow: 0 0 0 1px var(--bk-line), var(--bk-shadow-float); }
+.bk-marker--sm { width: 24px; height: 24px; }
+.bk-marker--sm .bk-icon { width: 14px; height: 14px; }
+.bk-map > .bk-marker { position: absolute; }
+.bk-map-control {
+  display: inline-flex; align-items: center; justify-content: center; gap: 6px;
+  min-height: var(--bk-control-sm); padding: 0 var(--bk-space-3);
+  background: var(--bk-glass); -webkit-backdrop-filter: var(--bk-glass-blur); backdrop-filter: var(--bk-glass-blur);
+  border: 1px solid var(--bk-line); border-radius: var(--bk-radius-control); box-shadow: var(--bk-shadow-float);
+  font: var(--bk-type-caption); font-weight: 600; color: var(--bk-text); cursor: pointer; text-decoration: none; white-space: nowrap;
+}
+.bk-map-control--icon { width: var(--bk-control-sm); padding: 0; }
+.bk-map-search { position: absolute; top: var(--bk-space-3); left: var(--bk-space-3); right: var(--bk-space-3); border-radius: var(--bk-radius-control); border: 0; }
+.bk-map-search .bk-field { background: transparent; border: 0; height: 44px; }
+.bk-map-sheet { position: absolute; left: var(--bk-space-2); right: var(--bk-space-2); bottom: var(--bk-space-2); padding-top: var(--bk-space-3); }
+.bk-map-sheet .bk-section-head { padding: 0 var(--bk-space-4) var(--bk-space-1); }
+/* A floating one-row note over a map or hero. Use with .bk-float. */
+.bk-chip { max-width: min(340px, calc(100% - 2 * var(--bk-space-4))); }
+
+/* ---------- Popover, tooltip, dialog, sheet: floating layers ---------- */
+.bk-popover { background: var(--bk-glass); -webkit-backdrop-filter: var(--bk-glass-blur); backdrop-filter: var(--bk-glass-blur); border: 1px solid var(--bk-line); border-radius: var(--bk-radius-inner); box-shadow: var(--bk-shadow-float); padding: var(--bk-space-2); }
+.bk-tooltip { background: var(--bk-glass); -webkit-backdrop-filter: var(--bk-glass-blur); backdrop-filter: var(--bk-glass-blur); border: 1px solid var(--bk-line); border-radius: var(--bk-radius-tile); box-shadow: var(--bk-shadow-float); padding: var(--bk-space-1) var(--bk-space-2); font: var(--bk-type-caption); font-weight: 500; color: var(--bk-text); white-space: nowrap; pointer-events: none; }
+.bk-scrim { position: fixed; inset: 0; z-index: 40; display: grid; place-items: center; padding: var(--bk-space-4); background: var(--bk-scrim); }
+.bk-dialog {
+  width: min(480px, 100%); max-height: calc(100svh - 2 * var(--bk-space-5)); overflow-y: auto;
+  display: flex; flex-direction: column; gap: var(--bk-space-4); padding: var(--bk-space-5);
+  background: var(--bk-glass); -webkit-backdrop-filter: var(--bk-glass-blur); backdrop-filter: var(--bk-glass-blur);
+  border: 1px solid var(--bk-line); border-radius: var(--bk-radius-card); box-shadow: var(--bk-shadow-float);
+}
+/* A panel docked over content: at the side on wide screens, at the bottom on phones. */
+.bk-sheet { background: var(--bk-glass); -webkit-backdrop-filter: var(--bk-glass-blur); backdrop-filter: var(--bk-glass-blur); border: 1px solid var(--bk-line); border-radius: var(--bk-radius-card); box-shadow: var(--bk-shadow-float); padding: var(--bk-space-4); overflow-y: auto; }
+@media (max-width: 600px) {
+  .bk-scrim { place-items: end stretch; padding: 0; }
+  .bk-dialog, .bk-sheet--bottom { width: 100%; border-radius: var(--bk-radius-card) var(--bk-radius-card) 0 0; padding-bottom: max(var(--bk-space-5), env(safe-area-inset-bottom, 0px)); }
+}
 
 @media (prefers-reduced-motion: reduce) {
   *, *::before, *::after { animation-duration: 0.01ms !important; transition-duration: 0.01ms !important; }
