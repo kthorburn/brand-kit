@@ -84,6 +84,7 @@
 
   /* Surfaces */
   --bk-glass: color-mix(in srgb, var(--bk-surface) 66%, transparent);
+  --bk-glass-strong: color-mix(in srgb, var(--bk-surface) 88%, transparent);  /* popovers, tooltips, dialogs: layers that sit over text */
   --bk-glass-blur: blur(22px) saturate(1.7);
   --bk-shadow-float: 0 1px 2px rgba(0, 0, 0, 0.06), 0 10px 28px rgba(0, 0, 0, 0.1);
   --bk-shadow-knob: 0 1px 2px rgba(0, 0, 0, 0.14);

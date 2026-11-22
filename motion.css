@@ -85,7 +85,8 @@
 .bk-marquee { overflow: hidden; display: flex; flex-direction: column; gap: var(--bk-space-2); padding-block: var(--bk-space-6); }
 .bk-marquee-row { display: flex; gap: 0.5em; width: max-content; white-space: nowrap; font: var(--bk-type-display); letter-spacing: var(--bk-track-display); transform: translateX(calc(var(--p) * -28%)); }
 .bk-marquee-row--reverse { transform: translateX(calc(-30% + var(--p) * 28%)); }
-.bk-marquee-row--outline { color: transparent; -webkit-text-stroke: 1.5px var(--bk-text-3); }
+/* Filled with the page color and stroked underneath, so a variable font's overlapping contours never show inside a letter. */
+.bk-marquee-row--outline { color: var(--bk-bg); -webkit-text-stroke: 3px var(--bk-text-3); paint-order: stroke fill; }
 
 /* ---------- Closing panel that grows into place ---------- */
 .bk-finale {

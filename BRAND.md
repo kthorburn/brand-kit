@@ -5,7 +5,7 @@ any two apps look like the same product. Values come from `tokens.css`;
 ready-made classes come from `components.css`; `reference.html` shows all of it
 on one page.
 
-Status: version 1.1, 2026-11-22 (version 1 confirmed the same day). Round corners, glass floating layers,
+Status: version 1.1.1, 2026-11-22 (version 1 confirmed the same day). Round corners, glass floating layers,
 cool neutrals and a deep blue accent.
 
 ## 1. Ground rules
@@ -79,7 +79,9 @@ Three surface levels, and nothing else:
 1. **Page**: `--bk-bg`. No border.
 2. **Card**: `--bk-surface` with a 1px `--bk-line` border. No shadow.
 3. **Floating layer**: glass (`.bk-float`): `--bk-glass` background,
-   `--bk-glass-blur` backdrop filter, 1px line, `--bk-shadow-float`.
+   `--bk-glass-blur` backdrop filter, 1px line, `--bk-shadow-float`. Popovers,
+   tooltips and dialogs sit over text, so they use the denser
+   `--bk-glass-strong`; `--bk-glass` is for layers over maps and media.
 
 Glass is only for things that sit on top of other content: the navbar, sheets
 and search bars over a map, popovers, toasts. A card in the normal page flow is
