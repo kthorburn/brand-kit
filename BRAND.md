@@ -5,7 +5,7 @@ any two apps look like the same product. Values come from `tokens.css`;
 ready-made classes come from `components.css`; `reference.html` shows all of it
 on one page.
 
-Status: version 1.1.2, 2026-11-22 (version 1 confirmed the same day). Round corners, glass floating layers,
+Status: version 1.1.3, 2026-11-22 (version 1 confirmed the same day). Round corners, glass floating layers,
 cool neutrals and a deep blue accent.
 
 ## 1. Ground rules
@@ -36,11 +36,14 @@ a web font, so Inter is the fallback. Load Inter at weights 400, 500, 600, 700.
 | Headline | `--bk-type-headline` | 17 / 600 | Row titles, emphasis. |
 | Body | `--bk-type-body` | 15 / 400 | Default text. |
 | Caption | `--bk-type-caption` | 13 / 400 | Secondary lines, labels, table headers. |
-| Micro | `--bk-type-micro` | 11 / 500 | Tab bar labels only. |
+| Micro | `--bk-type-micro` | 11 / 500 | Tab bar labels and chart axis ticks only. |
 
 - Apply with the `font` shorthand: `font: var(--bk-type-title-1)`.
 - Large takes `letter-spacing: var(--bk-track-large)`; titles take `--bk-track-title`.
 - Sentence case everywhere. No all-caps labels.
+- Nothing a person reads as text is smaller than Caption (13px): notes, table
+  sub-lines, legends and "how this is measured" links are Caption. Micro is
+  only for a tab bar label and for the tick labels on a chart axis.
 - Weights are 400, 500, 600 and 700 only.
 - Numbers that line up or change in place use `font-variant-numeric: tabular-nums`.
 - Running text is at most `--bk-width-prose` wide.
