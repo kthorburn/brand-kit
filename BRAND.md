@@ -5,7 +5,7 @@ any two apps look like the same product. Values come from `tokens.css`;
 ready-made classes come from `components.css`; `reference.html` shows all of it
 on one page.
 
-Status: version 1.1.3, 2026-11-22 (version 1 confirmed the same day). Round corners, glass floating layers,
+Status: version 1.1.4, 2026-11-23 (version 1 confirmed the same day). Round corners, glass floating layers,
 cool neutrals and a deep blue accent.
 
 ## 1. Ground rules
@@ -245,7 +245,9 @@ bottom sheet at phone width. A dialog has one primary button.
   differ: `--bk-accent` is the darker blue, so accent text passes on the page
   background, on cards and on its own soft tint; the fill stays brighter.
 - Every interactive element has a visible `:focus-visible` ring (2px accent,
-  2px offset).
+  2px offset). Where a scrolling container would clip it, as on the navbar's
+  links, the ring is drawn inside the control (-2px offset) so all four sides
+  show.
 - Hit areas: buttons and controls are at least 32px, 40px for primary
   actions. A standalone text link (`.bk-link`: an arrow link, a footer link,
   a breadcrumb) is at least 24px tall. A link inside a sentence is exempt.
