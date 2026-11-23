@@ -5,7 +5,7 @@ any two apps look like the same product. Values come from `tokens.css`;
 ready-made classes come from `components.css`; `reference.html` shows all of it
 on one page.
 
-Status: version 1.1.7, 2026-11-23 (version 1 confirmed the same day). Round corners, glass floating layers,
+Status: version 1.1.8, 2026-11-23 (version 1 confirmed the same day). Round corners, glass floating layers,
 cool neutrals and a deep blue accent.
 
 ## 1. Ground rules
@@ -204,6 +204,9 @@ the inner radius.
 **Table** (`.bk-table`): inside a card, inside `.bk-table-wrap` so it scrolls
 sideways on its own. Headers in caption size; numbers right-aligned and tabular.
 `.bk-pill--sm` (22px) is the pill for table cells.
+`.bk-table--compact` is for a dense tool's table of seven or more columns: 12px
+cell sides instead of 16, and cells wrap, so a row reads in two lines without
+scrolling sideways. Public pages keep the standard table.
 
 **Link** (`.bk-link`): an inline link in the accent, with an optional trailing
 16px icon such as `arrow-right`. `.bk-btn--link` is the same look for a

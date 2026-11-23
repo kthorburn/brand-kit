@@ -244,6 +244,8 @@ a.bk-row:hover, button.bk-row:hover { background: color-mix(in srgb, var(--bk-te
 .bk-table th { text-align: left; font: var(--bk-type-caption); font-weight: 600; color: var(--bk-text-2); padding: var(--bk-space-3) var(--bk-space-4); white-space: nowrap; }
 .bk-table td { padding: var(--bk-space-3) var(--bk-space-4); border-top: 1px solid var(--bk-line); white-space: nowrap; }
 .bk-table .bk-right { text-align: right; font-variant-numeric: tabular-nums; }
+/* Compact: a dense tool's table of seven or more columns. 12px cell sides, and cells wrap. */
+.bk-table--compact th, .bk-table--compact td { padding-inline: var(--bk-space-3); white-space: normal; }
 
 /* ---------- Tabs: more than four views of the same content ---------- */
 .bk-tabs { display: flex; gap: var(--bk-space-1); min-width: 0; overflow-x: auto; scrollbar-width: none; }
