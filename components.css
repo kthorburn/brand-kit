@@ -310,11 +310,18 @@ a.bk-row:hover, button.bk-row:hover { background: color-mix(in srgb, var(--bk-te
 }
 /* On a native <dialog> the display above would also show it while closed. */
 dialog.bk-dialog:not([open]) { display: none; }
+/* A native modal dialog is centered by its own margin; state it, since a CSS
+   reset often zeroes it. Its backdrop is the kit's scrim. */
+dialog.bk-dialog { margin: auto; color: var(--bk-text); }
+dialog.bk-dialog::backdrop { background: var(--bk-scrim); }
 /* A panel docked over content: at the side on wide screens, at the bottom on phones. */
 .bk-sheet { background: var(--bk-glass); -webkit-backdrop-filter: var(--bk-glass-blur); backdrop-filter: var(--bk-glass-blur); border: 1px solid var(--bk-line); border-radius: var(--bk-radius-card); box-shadow: var(--bk-shadow-float); padding: var(--bk-space-4); overflow-y: auto; }
 @media (max-width: 600px) {
   .bk-scrim { place-items: end stretch; padding: 0; }
   .bk-dialog, .bk-sheet--bottom { width: 100%; border-radius: var(--bk-radius-card) var(--bk-radius-card) 0 0; padding-bottom: max(var(--bk-space-5), env(safe-area-inset-bottom, 0px)); }
+  /* The native dialog has no .bk-scrim parent to pin it: pin it to the bottom
+     edge itself and lift the browser's own width cap. */
+  dialog.bk-dialog { margin: auto 0 0; max-width: none; max-height: calc(100svh - var(--bk-space-5)); }
 }
 
 @media (prefers-reduced-motion: reduce) {

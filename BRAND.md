@@ -5,7 +5,7 @@ any two apps look like the same product. Values come from `tokens.css`;
 ready-made classes come from `components.css`; `reference.html` shows all of it
 on one page.
 
-Status: version 1.1.5, 2026-11-23 (version 1 confirmed the same day). Round corners, glass floating layers,
+Status: version 1.1.6, 2026-11-23 (version 1 confirmed the same day). Round corners, glass floating layers,
 cool neutrals and a deep blue accent.
 
 ## 1. Ground rules
@@ -232,7 +232,9 @@ for a one-row note.
 **Popover, tooltip, dialog, sheet** (`.bk-popover`, `.bk-tooltip`,
 `.bk-dialog` inside `.bk-scrim`, `.bk-sheet`): all glass. A dialog becomes a
 bottom sheet at phone width. A dialog has one primary button. `.bk-dialog` may be
-put on a native `<dialog>`: it stays hidden until opened.
+put on a native `<dialog>`: it stays hidden until opened, is centered with the
+kit's scrim as its backdrop, and is a bottom sheet at phone width. Add no
+margin or width utilities to it.
 
 ## 7. Motion and accessibility
 
