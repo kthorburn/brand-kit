@@ -308,6 +308,9 @@ a.bk-row:hover, button.bk-row:hover { background: color-mix(in srgb, var(--bk-te
   background: var(--bk-glass-strong); -webkit-backdrop-filter: var(--bk-glass-blur); backdrop-filter: var(--bk-glass-blur);
   border: 1px solid var(--bk-line); border-radius: var(--bk-radius-card); box-shadow: var(--bk-shadow-float);
 }
+/* A floating layer is often opened from inside a table cell or a one-line
+   control: it does not inherit their no-wrap or right alignment. */
+.bk-dialog, .bk-popover, .bk-sheet { white-space: normal; text-align: start; }
 /* On a native <dialog> the display above would also show it while closed. */
 dialog.bk-dialog:not([open]) { display: none; }
 /* A native modal dialog is centered by its own margin; state it, since a CSS
